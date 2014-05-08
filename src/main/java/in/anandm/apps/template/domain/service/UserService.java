@@ -23,6 +23,11 @@ import com.googlecode.genericdao.search.Sort;
 @Service
 public class UserService implements IUserService {
 
+	private static final String[] dataTableProperties = new String[] {"id","userAccount.userId",
+		"userProfile.firstName","userProfile.lastName","userProfile.gender","userProfile.dob",
+		"userProfile.emailId","userProfile.contactNumber","userAccount.expireOn","userAccount.admin",
+		"userAccount.enabled"};
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -36,13 +41,14 @@ public class UserService implements IUserService {
 	public List<User> getRecords(Integer start, Integer noOfRecordsPerPage,
 			String searchText) {
 		Search search = new Search(User.class);
+		//search.addFetches(dataTableProperties);
 		if(searchText != null && !"".equals(searchText.trim())){
-			search.addFilterILike("userName", searchText);
+			search.addFilterILike("userAccount.userId", searchText);
 		}	
 		search.setFirstResult(start);
 		search.setMaxResults(noOfRecordsPerPage);
 		List<Sort> sorts = new ArrayList<Sort>();
-		sorts.add(Sort.desc("userName", true));
+		sorts.add(Sort.desc("userAccount.userId", true));
 		search.setSorts(sorts);
 		search.setResultMode(Search.RESULT_LIST);
 		return userRepository.search(search);

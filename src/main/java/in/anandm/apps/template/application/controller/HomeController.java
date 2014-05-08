@@ -1,11 +1,19 @@
 package in.anandm.apps.template.application.controller;
 
+import in.anandm.apps.template.domain.model.user.Gender;
+import in.anandm.apps.template.domain.model.user.User;
+import in.anandm.apps.template.domain.model.user.UserAccount;
+import in.anandm.apps.template.domain.model.user.UserProfile;
+import in.anandm.apps.template.domain.service.IUserService;
+import in.anandm.apps.template.domain.service.UserService;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +28,9 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	@Autowired
+	private IUserService userService;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -33,6 +44,13 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		
+		UserAccount userAccount = new UserAccount("anandm", "anandm", true, true, System.currentTimeMillis());
+		UserProfile userProfile = new UserProfile("Anand", "Mohan", Gender.MALE, 
+				System.currentTimeMillis(), "anandm@mkcl.org", "8108131239",null);
+		User user = new User(userAccount, userProfile);
+		userService.addUser(user);
+		
 		return "index";
 	}
 	

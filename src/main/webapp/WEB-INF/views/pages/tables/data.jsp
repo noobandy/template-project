@@ -482,18 +482,32 @@
 							<thead>
 								<th>Id</th>
 								<th>User Id</th>
-								<th>User Name</th>
-								<th>Password</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Gender</th>
+								<th>DOB</th>
+								<th>Email</th>
+								<th>Contact</th>
+								<th>Expire on</th>
+								<th>Admin</th>
+								<th>Enabled</th>
 							</thead>
 							<tbody>
 
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Id</th>
-									<th>User Id</th>
-									<th>User Name</th>
-									<th>Password</th>
+								<th>Id</th>
+								<th>User Id</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Gender</th>
+								<th>DOB</th>
+								<th>Email</th>
+								<th>Contact</th>
+								<th>Expire on</th>
+								<th>Admin</th>
+								<th>Enabled</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -530,9 +544,16 @@
                             "sAjaxSource": "${pageContext.request.contextPath}/ajax/browserData",
                             "aoColumns": [
                                           { "mData": "id" },
-                                          { "mData": "userId" },
-                                          { "mData": "userName"},
-                                          { "mData": "password" }
+                                          { "mData": "userAccount.userId" },
+                                          { "mData": "userProfile.firstName"},
+                                          { "mData": "userProfile.lastName" },
+                                          { "mData": "iuserProfile.gender" },
+                                          { "mData": "userProfile.dob" },
+                                          { "mData": "userProfile.emailId"},
+                                          { "mData": "userProfile.contactNumber" },
+                                          { "mData": "userAccount.expireOn" },
+                                          { "mData": "userAccount.admin" },
+                                          { "mData": "userAccount.enabled"}   
                                           ]
                 		});
                 $('#example2').dataTable({
