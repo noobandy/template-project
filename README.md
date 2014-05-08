@@ -1,4 +1,4 @@
-admin-template
+template-project
 ==============
 
-Spring MVC Template Project with Admin LTE bootstrap theme
+Spring MVC Template Project
