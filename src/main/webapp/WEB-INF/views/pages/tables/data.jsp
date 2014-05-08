@@ -480,22 +480,20 @@
 					<div class="box-body table-responsive">
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
-								<th>Rendering engine</th>
-									<th>Browser</th>
-									<th>Platform(s)</th>
-									<th>Engine version</th>
-									<th>CSS grade</th>
+								<th>Id</th>
+								<th>User Id</th>
+								<th>User Name</th>
+								<th>Password</th>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Rendering engine</th>
-									<th>Browser</th>
-									<th>Platform(s)</th>
-									<th>Engine version</th>
-									<th>CSS grade</th>
+									<th>Id</th>
+									<th>User Id</th>
+									<th>User Name</th>
+									<th>Password</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -531,11 +529,11 @@
                             "bServerSide": true,
                             "sAjaxSource": "${pageContext.request.contextPath}/ajax/browserData",
                             "aoColumns": [
-                                          { "mData": "renderingEngine" },
-                                          { "mData": "browser" },
-                                          { "mData": "plateform" },
-                                          { "mData": "engineVersion" },
-                                          { "mData": "cssGrade" }]
+                                          { "mData": "id" },
+                                          { "mData": "userId" },
+                                          { "mData": "userName"},
+                                          { "mData": "password" }
+                                          ]
                 		});
                 $('#example2').dataTable({
                     "bPaginate": true,
