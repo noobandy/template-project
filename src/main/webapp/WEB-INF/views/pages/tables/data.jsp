@@ -537,23 +537,37 @@
         <!-- page script -->
         <script type="text/javascript">
             $(function() {
-                $("#example1").dataTable(
+               $("#example1").dataTable(
                 		{
                 			"bProcessing": true,
                             "bServerSide": true,
-                            "sAjaxSource": "${pageContext.request.contextPath}/ajax/browserData",
+                            "sAjaxSource": "${pageContext.request.contextPath}/ajax/userData",
                             "aoColumns": [
-                                          { "mData": "id" },
-                                          { "mData": "userAccount.userId" },
-                                          { "mData": "userProfile.firstName"},
-                                          { "mData": "userProfile.lastName" },
-                                          { "mData": "iuserProfile.gender" },
-                                          { "mData": "userProfile.dob" },
-                                          { "mData": "userProfile.emailId"},
-                                          { "mData": "userProfile.contactNumber" },
-                                          { "mData": "userAccount.expireOn" },
-                                          { "mData": "userAccount.admin" },
-                                          { "mData": "userAccount.enabled"}   
+                                          { "mData": "id","sName": "userAccount.id"},
+                                          { "mData": "userId","sName": "userAccount.userId"},
+                                          { "mData": "firstName","sName": "userProfile.firstName"},
+                                          { "mData": "lastName","sName": "userProfile.lastName"},
+                                          { "mData": "gender","sName": "userProfile.gender"},
+                                          { "mData": "dob","sName": "userProfile.dob"},
+                                          { "mData": "emailId","sName": "userProfile.emailId"},
+                                          { "mData": "contactNumber","sName": "userProfile.contactNumber"},
+                                          { "mData": "expireOn","sName": "userAccount.expireOn"},
+                                          { "mData": "admin","sName": "userAccount.admin",
+                                        	  "fnRender" : function(obj) {
+                                                  if (obj.aData.admin)
+                                                   return '<input type="checkbox" name="aCheckBox" class="dt_checked" checked value="'+obj.aData.admin+'\"/>';
+
+                                                  return '<input type="checkbox" name="aCheckBox"  class="dt_checked" value="'+obj.aData.admin+'\"/>';
+                                                 }
+                                          },
+                                          { "mData": "enabled","sName": "userAccount.enabled",
+                                        	  "fnRender" : function(obj) {
+                                                  if (obj.aData.enabled)
+                                                   return '<input type="checkbox" name="aCheckBox" class="dt_checked" checked value="'+obj.aData.enabled+'\"/>';
+
+                                                  return '<input type="checkbox" name="aCheckBox"  class="dt_checked" value="'+obj.aData.enabled+'\"/>';
+                                                 }
+                                        	  }   
                                           ]
                 		});
                 $('#example2').dataTable({

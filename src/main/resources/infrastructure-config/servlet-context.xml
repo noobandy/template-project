@@ -8,7 +8,8 @@
 
 	<mvc:annotation-driven />
 	<!-- location to search for annotation -->
-	<context:component-scan base-package="in.anandm.apps.template.application.controller">
+	<context:component-scan
+		base-package="in.anandm.apps.template.application.controller">
 	</context:component-scan>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"
@@ -29,16 +30,15 @@
 		<property name="paramName" value="lang"></property>
 	</bean>
 
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-	<property name="cookieName" value="_TEMPLATE_lANG_"></property>
-	<property name="cookiePath" value="/"></property>
-	<property name="cookieMaxAge" value="604800"></property>
-	<property name="defaultLocale" value="en_US"></property>
-	</bean>
-	<!-- <bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="_TEMPLATE_lANG_"></property>
+		<property name="cookiePath" value="/"></property>
+		<property name="cookieMaxAge" value="604800"></property>
 		<property name="defaultLocale" value="en_US"></property>
-	</bean> -->
+	</bean>
+	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> 
+		<property name="defaultLocale" value="en_US"></property> </bean> -->
 
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -49,7 +49,9 @@
 				<!-- JSON View -->
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
-					<property name="contentType" value="application/json;charset=UTF-8"></property>
+					<property name="contentType" value="application/json;charset=UTF-8" />
+					<property name="objectMapper" ref="objectMapper" />
+					<property name="extractValueFromSingleKeyModel" value="true" />
 				</bean>
 			</list>
 		</property>
@@ -70,6 +72,8 @@
 		</property>
 	</bean>
 
+	<bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+	</bean>
 
 	<!-- If no extension matched, use JSP view -->
 	<bean
@@ -82,9 +86,9 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
+
 	<!-- Multipart Resolver -->
-	
+
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="20971520" />

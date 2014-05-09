@@ -4,7 +4,6 @@
 package in.anandm.apps.template.domain.model.user;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;

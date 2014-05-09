@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
+//@JsonIgnoreProperties({"failedLoginAttempts","successfullLoginAttempts","activeSessions"})
 public class User {
 
 	@Embedded

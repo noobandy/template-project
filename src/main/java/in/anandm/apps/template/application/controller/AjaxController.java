@@ -5,6 +5,7 @@ import in.anandm.apps.template.domain.service.IUserService;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AjaxController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
-	
+
 	@Autowired
 	private IUserService userService;
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -44,22 +45,12 @@ public class AjaxController {
 		return "dashboard-boxrefresh-demo";
 	}
 
-	@RequestMapping(value = "/browserData", method = RequestMethod.GET)
+	@RequestMapping(value = "/userData", method = RequestMethod.GET)
 	public String browserData(Locale locale, Model model,
-			@RequestParam(value="iDisplayLength") Integer iDisplayLength,
-			@RequestParam(value="iDisplayStart") Integer iDisplayStart,
-			@RequestParam(value="sSearch") String sSearch
+			@RequestParam Map<String,String> params
 			) {
-		
-		
-		logger.info("Welcome browser Data! The client locale is {}.", locale);
-		logger.info("iDisplayLength {}.", iDisplayLength);
-		logger.info("iDisplayStart {}.", iDisplayStart);
-		logger.info("sSearch {}.", sSearch);
-
-
-		model.addAttribute("aaData",userService.getRecords(iDisplayStart, iDisplayLength, sSearch));
-
+		logger.info("Params : {}",params);
+		model.addAttribute(userService.getDataTable(params));
 		return "result";
 	}
 }

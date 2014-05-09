@@ -4,10 +4,11 @@
 package in.anandm.apps.template.domain.model.user;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * @author noobandy
@@ -23,6 +24,7 @@ public class UserProfile implements Serializable {
 
 	private String firstName;
 	private String lastName;
+	@Enumerated(value=EnumType.STRING)
 	private Gender gender;
 	private Long dob;
 	private String emailId;
