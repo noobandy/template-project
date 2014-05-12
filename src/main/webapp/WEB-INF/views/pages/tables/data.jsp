@@ -268,7 +268,7 @@
 									<td>A</td>
 								</tr>
 								<tr>
-									<td>Webkit</td>
+									<td>Webkit</td>type
 									<td>OmniWeb 5.5</td>
 									<td>OSX.4+</td>
 									<td>420</td>
@@ -543,16 +543,16 @@
                             "bServerSide": true,
                             "sAjaxSource": "${pageContext.request.contextPath}/ajax/userData",
                             "aoColumns": [
-                                          { "mData": "id","sName": "userAccount.id"},
-                                          { "mData": "userId","sName": "userAccount.userId"},
-                                          { "mData": "firstName","sName": "userProfile.firstName"},
-                                          { "mData": "lastName","sName": "userProfile.lastName"},
-                                          { "mData": "gender","sName": "userProfile.gender"},
-                                          { "mData": "dob","sName": "userProfile.dob"},
-                                          { "mData": "emailId","sName": "userProfile.emailId"},
-                                          { "mData": "contactNumber","sName": "userProfile.contactNumber"},
-                                          { "mData": "expireOn","sName": "userAccount.expireOn"},
-                                          { "mData": "admin","sName": "userAccount.admin",
+                                          { "mData": "id","sName": "id","bSearchable":false},
+                                          { "mData": "userId","sName": "userAccount.userId","bSearchable":true},
+                                          { "mData": "firstName","sName": "userProfile.firstName","bSearchable":true},
+                                          { "mData": "lastName","sName": "userProfile.lastName","bSearchable":true},
+                                          { "mData": "gender","sName": "userProfile.gender","bSearchable":false},
+                                          { "mData": "dob","sName": "userProfile.dob","bSearchable":false},
+                                          { "mData": "emailId","sName": "userProfile.emailId","bSearchable":true},
+                                          { "mData": "contactNumber","sName": "userProfile.contactNumber","bSearchable":true},
+                                          { "mData": "expireOn","sName": "userAccount.expireOn","bSearchable":false},
+                                          { "mData": "admin","sName": "userAccount.admin","bSearchable":false,
                                         	  "fnRender" : function(obj) {
                                                   if (obj.aData.admin)
                                                    return '<input type="checkbox" name="aCheckBox" class="dt_checked" checked value="'+obj.aData.admin+'\"/>';
@@ -560,7 +560,7 @@
                                                   return '<input type="checkbox" name="aCheckBox"  class="dt_checked" value="'+obj.aData.admin+'\"/>';
                                                  }
                                           },
-                                          { "mData": "enabled","sName": "userAccount.enabled",
+                                          { "mData": "enabled","sName": "userAccount.enabled","bSearchable":false,
                                         	  "fnRender" : function(obj) {
                                                   if (obj.aData.enabled)
                                                    return '<input type="checkbox" name="aCheckBox" class="dt_checked" checked value="'+obj.aData.enabled+'\"/>';
