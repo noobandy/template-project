@@ -14,15 +14,17 @@
 	</security:global-method-security>
 	
 	<security:http pattern="/resources/**" security="none" />
+	<!-- <security:http pattern="/login" security="none"/>
+	<security:http pattern="/account/forgot/password" security="none"/> -->
 	
 	<security:http auto-config="true" use-expressions="true"
 		authentication-manager-ref="authenticationManager"
 		disable-url-rewriting="true" create-session="ifRequired">
+		<security:anonymous enabled="true"/>
 		<security:port-mappings >
 		<security:port-mapping http="8080" https="8443"/>
 		</security:port-mappings>
 		<!-- <security:intercept-url pattern="/account/**" requires-channel="https"/> -->
-		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/login" access="permitAll" requires-channel="https"/>
 		<security:intercept-url pattern="/account/forgot/password" access="permitAll" requires-channel="https"/>
 		
