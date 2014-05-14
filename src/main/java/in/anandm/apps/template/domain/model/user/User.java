@@ -3,6 +3,8 @@
  */
 package in.anandm.apps.template.domain.model.user;
 
+import in.anandm.apps.template.domain.model.group.Group;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -25,7 +28,7 @@ public class User {
 	private UserAccount userAccount;
 	@Embedded
 	private UserProfile userProfile;
-	
+
 	@OneToMany(mappedBy="user")
 	private List<FailedLoginAttempt> failedLoginAttempts = new ArrayList<FailedLoginAttempt>();
 	@OneToMany(mappedBy="user")
@@ -33,7 +36,9 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<ActiveSession> activeSessions = new ArrayList<ActiveSession>();
 
-	
+	@ManyToMany(mappedBy="users")
+	private List<Group> groups = new ArrayList<Group>();
+
 	public User(UserAccount userAccount, UserProfile userProfile) {
 		super();
 		this.userAccount = userAccount;
@@ -74,6 +79,11 @@ public class User {
 	public List<ActiveSession> getActiveSessions() {
 		return activeSessions;
 	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
 
 
 	@Id
