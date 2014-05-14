@@ -3,10 +3,10 @@
  */
 package in.anandm.apps.template.domain.service;
 
-import in.anandm.apps.template.application.dto.DataTable;
-import in.anandm.apps.template.application.dto.UserDTO;
-import in.anandm.apps.template.application.impl.UserRepository;
+import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.User;
+import in.anandm.apps.template.interfaces.admin.web.DataTable;
+import in.anandm.apps.template.interfaces.admin.web.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private IUserRepository userRepository;
 
 	@Override
 	public void addUser(User user) {
@@ -32,7 +32,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public DataTable<UserDTO> getDataTable(Map<String, String> params) {
-		DataTable<User> userDataTable = userRepository.getDataTable(User.class,params);
+		DataTable<User> userDataTable = userRepository.getDataTable(params);
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		List<User> users = userDataTable.getAaData();
 		for (User user : users) {

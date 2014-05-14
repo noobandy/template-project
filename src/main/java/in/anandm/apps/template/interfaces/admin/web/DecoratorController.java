@@ -1,4 +1,4 @@
-package in.anandm.apps.template.application.controller;
+package in.anandm.apps.template.interfaces.admin.web;
 
 import java.text.DateFormat;
 import java.util.Date;

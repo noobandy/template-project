@@ -40,6 +40,50 @@
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
+
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Data Table With Full Features</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body table-responsive">
+						<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<th>Id</th>
+								<th>User Id</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Gender</th>
+								<th>DOB</th>
+								<th>Email</th>
+								<th>Contact</th>
+								<th>Expire on</th>
+								<th>Admin</th>
+								<th>Enabled</th>
+							</thead>
+							<tbody>
+
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Id</th>
+									<th>User Id</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Gender</th>
+									<th>DOB</th>
+									<th>Email</th>
+									<th>Contact</th>
+									<th>Expire on</th>
+									<th>Admin</th>
+									<th>Enabled</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">Hover Data Table</h3>
@@ -471,50 +515,6 @@
 					<!-- /.box-body -->
 				</div>
 				<!-- /.box -->
-
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">Data Table With Full Features</h3>
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body table-responsive">
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<th>Id</th>
-								<th>User Id</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Gender</th>
-								<th>DOB</th>
-								<th>Email</th>
-								<th>Contact</th>
-								<th>Expire on</th>
-								<th>Admin</th>
-								<th>Enabled</th>
-							</thead>
-							<tbody>
-
-							</tbody>
-							<tfoot>
-								<tr>
-								<th>Id</th>
-								<th>User Id</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Gender</th>
-								<th>DOB</th>
-								<th>Email</th>
-								<th>Contact</th>
-								<th>Expire on</th>
-								<th>Admin</th>
-								<th>Enabled</th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-					<!-- /.box-body -->
-				</div>
-				<!-- /.box -->
 			</div>
 		</div>
 
@@ -529,7 +529,8 @@
         <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- DATA TABES SCRIPT -->
         <script src="${pageContext.request.contextPath}/resources/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+         <script src="${pageContext.request.contextPath}/resources/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
         <script src="${pageContext.request.contextPath}/resources/js/AdminLTE/app.js" type="text/javascript"></script>
         <!-- AdminLTE for demo purposes -->
@@ -569,7 +570,22 @@
                                                  }
                                         	  }   
                                           ]
-                		});
+                		}).columnFilter({
+                			sPlaceHolder: "head:before",
+                			aoColumns: [ { type: "number" },
+                			             { type: "text" },
+                			             { type: "text" },
+                			             { type: "text" },
+                			             { type: "select", values: [ 'MALE', 'FEMALE']  },
+                					     { type: "date-range" },
+                					     { type: "text" },
+                					     { type: "text" },
+                					     { type: "date-range" },
+                					     { type: "select", values: ['admin','non admin'] },
+                	             		 { type: "select", values: ['enabled','disbaled'] }
+                					]
+
+                			});
                 $('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,

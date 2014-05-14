@@ -1,10 +1,10 @@
 /**
  * 
  */
-package in.anandm.apps.template.application.impl;
+package in.anandm.apps.template.infrastructure.persistence.jpa;
 
-import in.anandm.apps.template.application.dto.ColumnMetaData;
-import in.anandm.apps.template.application.dto.DataTable;
+import in.anandm.apps.template.interfaces.admin.web.ColumnMetaData;
+import in.anandm.apps.template.interfaces.admin.web.DataTable;
 
 import java.io.Serializable;
 import java.util.ArrayList;

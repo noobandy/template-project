@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.application.dto;
+package in.anandm.apps.template.interfaces.admin.web;
 
 import java.io.Serializable;
 import java.util.List;
