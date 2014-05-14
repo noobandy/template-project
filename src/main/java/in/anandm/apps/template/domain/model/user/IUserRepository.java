@@ -3,7 +3,7 @@
  */
 package in.anandm.apps.template.domain.model.user;
 
-import in.anandm.apps.template.interfaces.admin.web.DataTable;
+import in.anandm.apps.template.interfaces.web.DataTable;
 
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface IUserRepository {
 
-	void save(User user);
+	void addUser(User user);
 	User getUserByUserId(String userId);
 	
 	DataTable<User> getDataTable(Map<String, String> params);

@@ -28,9 +28,9 @@
 		
 		<security:intercept-url pattern="/**" access="isAuthenticated()" requires-channel="https"/>
 		
-		<security:form-login default-target-url="/dashboard"
+		<security:form-login default-target-url="/login?attempt=success"
 			always-use-default-target="true" authentication-failure-url="/login?attempt=failed"
-			login-page="/login" username-parameter="userName" password-parameter="password" />
+			login-page="/login" username-parameter="userid" password-parameter="password" />
 
 		<security:logout logout-success-url="/login?attempt=logOut"
 			invalidate-session="true" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
@@ -42,7 +42,7 @@
 			</security:session-management>
 	</security:http>
 	
-	<bean id="userDetailsService" class="org.mkcl.egov.edms.service.CustomUserDetailsService"></bean>
+	<bean id="userDetailsService" class="in.anandm.apps.template.application.impl.CustomUserDetailsService"></bean>
 
 	<bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
 	<constructor-arg name="strength" value="512" ></constructor-arg> 
@@ -51,7 +51,7 @@
 		<property name="passwordEncoder" ref="shaPasswordEncoder"></property> 
 		<property name="saltSource">
 		<bean class="org.springframework.security.authentication.dao.ReflectionSaltSource">
-		<property name="userPropertyToUse" value="username"></property>
+		<property name="userPropertyToUse" value="userId"></property>
 		</bean>
 		</property>
 		</bean>

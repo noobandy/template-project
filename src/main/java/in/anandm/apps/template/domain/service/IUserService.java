@@ -1,8 +1,8 @@
 package in.anandm.apps.template.domain.service;
 
 import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.interfaces.admin.web.DataTable;
-import in.anandm.apps.template.interfaces.admin.web.dto.UserDTO;
+import in.anandm.apps.template.interfaces.web.DataTable;
+import in.anandm.apps.template.interfaces.web.UserDTO;
 
 import java.util.Map;
 

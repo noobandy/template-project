@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.admin.web;
+package in.anandm.apps.template.interfaces.web;
 
 import java.util.ArrayList;
 import java.util.List;

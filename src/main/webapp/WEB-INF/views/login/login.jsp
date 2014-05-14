@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html class="bg-black">
     <head>
         <meta charset="UTF-8">
@@ -22,7 +23,13 @@
 
         <div class="form-box" id="login-box">
             <div class="header">Sign In</div>
-            <form action="${pageContext.request.contextPath}/" method="post">
+            <c:if test="${not empty errorMsg}">
+            <span class="error"><c:out value="${errorMsg}"></c:out> </span>
+            </c:if>
+             <c:if test="${not empty successMsg}">
+            <span class="success"><c:out value="${successMsg}"></c:out> </span>
+            </c:if>
+            <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
                 <div class="body bg-gray">
                     <div class="form-group">
                         <input type="text" name="userid" class="form-control" placeholder="User ID"/>
@@ -49,7 +56,6 @@
                 <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
                 <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
                 <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
-
             </div>
         </div>
 

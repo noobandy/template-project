@@ -9,7 +9,7 @@
 	<mvc:annotation-driven />
 	<!-- location to search for annotation -->
 	<context:component-scan
-		base-package="in.anandm.apps.template.interfaces.admin.web">
+		base-package="in.anandm.apps.template.interfaces.web">
 	</context:component-scan>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"
