@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class SuccessfullLoginAttempt implements Serializable{
+public class SuccessfullLogin implements Serializable{
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class SuccessfullLoginAttempt implements Serializable{
 	
 	
 	
-	public SuccessfullLoginAttempt(Long succeededOn, HostAddress hostAddress,User user) {
+	public SuccessfullLogin(Long succeededOn, HostAddress hostAddress,User user) {
 		super();
 		this.succeededOn = succeededOn;
 		this.hostAddress = hostAddress;
@@ -66,7 +66,7 @@ public class SuccessfullLoginAttempt implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	SuccessfullLoginAttempt() {
+	SuccessfullLogin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

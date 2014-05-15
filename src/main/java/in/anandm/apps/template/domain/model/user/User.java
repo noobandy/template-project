@@ -30,11 +30,11 @@ public class User {
 	private UserProfile userProfile;
 
 	@OneToMany(mappedBy="user")
-	private List<FailedLoginAttempt> failedLoginAttempts = new ArrayList<FailedLoginAttempt>();
+	private List<FailedLogin> failedLogins = new ArrayList<FailedLogin>();
 	@OneToMany(mappedBy="user")
-	private List<SuccessfullLoginAttempt> successfullLoginAttempts = new ArrayList<SuccessfullLoginAttempt>();
+	private List<SuccessfullLogin> successfullLogins = new ArrayList<SuccessfullLogin>();
 	@OneToMany(mappedBy="user")
-	private List<ActiveSession> activeSessions = new ArrayList<ActiveSession>();
+	private List<UserSession> userSessions = new ArrayList<UserSession>();
 
 	@ManyToMany(mappedBy="users")
 	private List<Group> groups = new ArrayList<Group>();
@@ -62,22 +62,22 @@ public class User {
 	/**
 	 * @return the failedLoginAttempts
 	 */
-	public List<FailedLoginAttempt> getFailedLoginAttempts() {
-		return failedLoginAttempts;
+	public List<FailedLogin> getFailedLogins() {
+		return failedLogins;
 	}
 
 	/**
 	 * @return the successfullLoginAttempts
 	 */
-	public List<SuccessfullLoginAttempt> getSuccessfullLoginAttempts() {
-		return successfullLoginAttempts;
+	public List<SuccessfullLogin> getSuccessfullLogins() {
+		return successfullLogins;
 	}
 
 	/**
 	 * @return the activeSessions
 	 */
-	public List<ActiveSession> getActiveSessions() {
-		return activeSessions;
+	public List<UserSession> getActiveSessions() {
+		return userSessions;
 	}
 
 	public List<Group> getGroups() {

@@ -22,7 +22,7 @@ import com.googlecode.genericdao.search.Search;
 public class UserRepository extends BaseRepository<User, Long> implements IUserRepository{
 
 	@Override
-	public void addUser(User user) {
+	public void saveUser(User user) {
 		save(user);
 	}
 
@@ -38,6 +38,4 @@ public class UserRepository extends BaseRepository<User, Long> implements IUserR
 	public DataTable<User> getDataTable(Map<String, String> params) {
 		return getDataTable(User.class, params);
 	}
-
-
 }

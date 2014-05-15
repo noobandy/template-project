@@ -29,5 +29,15 @@ public class HostAddress implements Serializable {
 	public String getIp() {
 		return ip;
 	}
+
+	/**
+	 * 
+	 */
+	HostAddress() {
+		super();
+		
+	}
+	
+	
 	
 }

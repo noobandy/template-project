@@ -38,7 +38,7 @@
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
                     </div>          
                     <div class="form-group">
-                        <input type="checkbox" name="remember_me"/> Remember me
+                        <input type="checkbox" name="_spring_security_remember_me"/> Remember me
                     </div>
                 </div>
                 <div class="footer">                                                               

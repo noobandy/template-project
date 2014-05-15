@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class ActiveSession implements Serializable {
+public class UserSession implements Serializable {
 
 	/**
 	 * 
@@ -25,29 +25,40 @@ public class ActiveSession implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long startTime;
-	
+	private Long endTime;
+	private String sessionId;
+
 	@Embedded
 	private HostAddress hostAddress;
-	
+
 	@ManyToOne
 	private User user;
 
-	public ActiveSession(Long startTime, HostAddress hostAddress,User user) {
+	public UserSession(String sessionId,Long startTime, HostAddress hostAddress,User user) {
 		super();
+		this.sessionId = sessionId;
 		this.startTime = startTime;
 		this.hostAddress = hostAddress;
 		this.user = user;
+	}
+
+	public String getSessionId() {
+		return sessionId;
 	}
 
 	public Long getStartTime() {
 		return startTime;
 	}
 
+	public Long getEndTime() {
+		return endTime;
+	}
+
 	public HostAddress getHostAddress() {
 		return hostAddress;
 	}
 
-	
+
 	/**
 	 * @return the user
 	 */
@@ -55,6 +66,10 @@ public class ActiveSession implements Serializable {
 		return user;
 	}
 
+
+	public void endSession(){
+		this.endTime = System.currentTimeMillis();
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -70,7 +85,7 @@ public class ActiveSession implements Serializable {
 	}
 
 
-	ActiveSession() {
+	UserSession() {
 		// TODO Auto-generated constructor stub
 	}
 

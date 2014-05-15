@@ -40,7 +40,7 @@
 		<security:remember-me data-source-ref="dataSource"
 			user-service-ref="userDetailsService" />
 			<security:session-management session-authentication-error-url="/login?attempt=duplicateSession" session-fixation-protection="migrateSession">
-			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/login?attempt=duplicateSession"/>
+			<!-- <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/login?attempt=duplicateSession"/> -->
 			</security:session-management>
 	</security:http>
 	

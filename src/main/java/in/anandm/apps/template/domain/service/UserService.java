@@ -27,7 +27,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void addUser(User user) {
-		userRepository.addUser(user);
+		userRepository.saveUser(user);
 	}
 
 	@Override

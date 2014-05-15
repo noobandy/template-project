@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public interface IUserRepository {
 
-	void addUser(User user);
+	void saveUser(User user);
 	User getUserByUserId(String userId);
-	
+
 	DataTable<User> getDataTable(Map<String, String> params);
 }

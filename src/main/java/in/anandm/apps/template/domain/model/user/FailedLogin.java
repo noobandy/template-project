@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class FailedLoginAttempt {
+public class FailedLogin {
 
 	private Long failedOn;
 	
@@ -27,7 +27,7 @@ public class FailedLoginAttempt {
 	
 
 
-	public FailedLoginAttempt(Long failedOn, HostAddress hostAddress,User
+	public FailedLogin(Long failedOn, HostAddress hostAddress,User
 			 user) {
 		super();
 		this.failedOn = failedOn;
@@ -66,7 +66,7 @@ public class FailedLoginAttempt {
 	private Long id;
 
 
-	FailedLoginAttempt() {
+	FailedLogin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
