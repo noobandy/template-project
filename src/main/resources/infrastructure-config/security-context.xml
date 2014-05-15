@@ -7,58 +7,73 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
-		
+
 	<security:global-method-security
 		secured-annotations="enabled" authentication-manager-ref="authenticationManager"
 		proxy-target-class="true" pre-post-annotations="enabled">
 	</security:global-method-security>
-	
+
 	<security:http pattern="/resources/**" security="none" />
-	<!-- <security:http pattern="/login" security="none"/>
-	<security:http pattern="/account/forgot/password" security="none"/> -->
-	
+	<!-- LDPA -->
+	<!-- <security:ldap-server url="ldap://dap.forumsys.com" manager-dn="cn=read-only-admin,dc=example,dc=com" 
+		manager-password="password" port="389" root="ou=scientists,dc=example,dc=com" 
+		/> <security:ldap-user-service id="ldapUserService" user-search-filter="uid={0}" 
+		/> -->
+
 	<security:http auto-config="true" use-expressions="true"
 		authentication-manager-ref="authenticationManager"
 		disable-url-rewriting="true" create-session="ifRequired">
-		<security:anonymous enabled="true"/>
-		<security:port-mappings >
-		<security:port-mapping http="8080" https="8443"/>
+		<security:anonymous enabled="true" />
+		<security:port-mappings>
+			<security:port-mapping http="8080" https="8443" />
 		</security:port-mappings>
-		<!-- <security:intercept-url pattern="/account/**" requires-channel="https"/> -->
-		<security:intercept-url pattern="/login" access="permitAll" requires-channel="https"/>
-		<security:intercept-url pattern="/account/forgot/password" access="permitAll" requires-channel="https"/>
-		
-		<security:intercept-url pattern="/**" access="isAuthenticated()" requires-channel="https"/>
-		
+
+		<security:intercept-url pattern="/login"
+			access="permitAll" requires-channel="https" />
+		<security:intercept-url pattern="/account/forgot/password"
+			access="permitAll" requires-channel="https" />
+
+		<security:intercept-url pattern="/**"
+			access="isAuthenticated()" requires-channel="https" />
+
 		<security:form-login default-target-url="/login?attempt=success"
 			always-use-default-target="true" authentication-failure-url="/login?attempt=failed"
 			login-page="/login" username-parameter="userid" password-parameter="password" />
-
 		<security:logout logout-success-url="/login?attempt=logOut"
 			invalidate-session="true" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
-
 		<security:remember-me data-source-ref="dataSource"
 			user-service-ref="userDetailsService" />
-			<security:session-management session-authentication-error-url="/login?attempt=duplicateSession" session-fixation-protection="migrateSession">
-			<!-- <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/login?attempt=duplicateSession"/> -->
-			</security:session-management>
+		<security:session-management
+			session-authentication-error-url="/login?attempt=duplicateSession"
+			session-fixation-protection="migrateSession">
+			<security:concurrency-control
+				max-sessions="1" error-if-maximum-exceeded="false"
+				expired-url="/login?attempt=duplicateSession" />
+		</security:session-management>
 	</security:http>
-	
-	<bean id="userDetailsService" class="in.anandm.apps.template.application.impl.CustomUserDetailsService"></bean>
 
-	<bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
-	<constructor-arg name="strength" value="512" ></constructor-arg> 
-		</bean> <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"> 
-		<property name="userDetailsService" ref="userDetailsService"></property> 
-		<property name="passwordEncoder" ref="shaPasswordEncoder"></property> 
+	<bean id="userDetailsService"
+		class="in.anandm.apps.template.application.impl.CustomUserDetailsService"></bean>
+
+	<bean id="shaPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<constructor-arg name="strength" value="512"></constructor-arg>
+	</bean>
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService"></property>
+		<property name="passwordEncoder" ref="shaPasswordEncoder"></property>
 		<property name="saltSource">
-		<bean class="org.springframework.security.authentication.dao.ReflectionSaltSource">
-		<property name="userPropertyToUse" value="userId"></property>
-		</bean>
+			<bean
+				class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+				<property name="userPropertyToUse" value="userId"></property>
+			</bean>
 		</property>
-		</bean>
+	</bean>
 
-	<security:authentication-manager id="authenticationManager" >
+	<security:authentication-manager id="authenticationManager">
+		<!-- <security:ldap-authentication-provider user-dn-pattern="uid={0},ou=scientists"> 
+			</security:ldap-authentication-provider> -->
 		<security:authentication-provider
 			ref="daoAuthenticationProvider">
 		</security:authentication-provider>

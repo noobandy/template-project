@@ -92,6 +92,14 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+			<version>${spring.security-version}</version>
+		</dependency>
+
+
+
 
 		<!-- Apache commons -->
 		<dependency>
@@ -174,12 +182,8 @@
 			<version>5.1.22</version>
 		</dependency>
 		<!-- Hibernate -->
-		<!-- <dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.1</version>
-		</dependency>
- -->
+		<!-- <dependency> <groupId>cglib</groupId> <artifactId>cglib</artifactId> 
+			<version>3.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
