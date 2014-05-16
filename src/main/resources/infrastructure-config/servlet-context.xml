@@ -8,8 +8,7 @@
 
 	<mvc:annotation-driven />
 	<!-- location to search for annotation -->
-	<context:component-scan
-		base-package="in.anandm.apps.template.interfaces.web">
+	<context:component-scan base-package="in.anandm.apps.template.interfaces.web">
 	</context:component-scan>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"
@@ -23,6 +22,7 @@
 		<property name="basename" value="classpath:messages/MessageBundle"></property>
 		<property name="defaultEncoding" value="UTF-8"></property>
 		<property name="cacheSeconds" value="10"></property>
+		<property name="useCodeAsDefaultMessage" value="true" />
 	</bean>
 
 	<bean id="localeChangeInterceptor"

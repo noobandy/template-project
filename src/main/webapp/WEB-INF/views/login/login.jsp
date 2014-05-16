@@ -23,12 +23,6 @@
 
         <div class="form-box" id="login-box">
             <div class="header">Sign In</div>
-            <c:if test="${not empty errorMsg}">
-            <span class="error"><c:out value="${errorMsg}"></c:out> </span>
-            </c:if>
-             <c:if test="${not empty successMsg}">
-            <span class="success"><c:out value="${successMsg}"></c:out> </span>
-            </c:if>
             <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
                 <div class="body bg-gray">
                     <div class="form-group">
@@ -44,7 +38,7 @@
                 <div class="footer">                                                               
                     <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
                     
-                    <p><a href="#">I forgot my password</a></p>
+                    <p><a href="forgotPassword">I forgot my password</a></p>
                     
                     <a href="register" class="text-center">Register a new membership</a>
                 </div>
@@ -66,4 +60,17 @@
         <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>        
 
     </body>
+    <script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/notify.min.js"></script>
+<script type="text/javascript">
+	$('document').ready(function() {
+
+		<c:if test="${not empty notifications}">
+		<c:forEach items="${notifications}" var="notification">
+		$.notify('${notification.message}', '${notification.style}','${notification.position}');
+		</c:forEach>
+		<c:remove var="notifications" scope="session" />
+		</c:if>
+	});
+</script>
 </html>

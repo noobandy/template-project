@@ -5,7 +5,6 @@ import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.model.user.UserAccount;
 import in.anandm.apps.template.domain.model.user.UserProfile;
 import in.anandm.apps.template.domain.service.IUserService;
-import in.anandm.apps.template.domain.service.UserService;
 
 import java.text.DateFormat;
 import java.util.Date;

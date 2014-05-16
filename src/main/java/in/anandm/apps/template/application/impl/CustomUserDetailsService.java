@@ -34,7 +34,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("user name not found exception");
 		}else{
 			UserAccount account = user.getUserAccount();
-			boolean accountNonExpired = account.getExpireOn() > System.currentTimeMillis();
+			
+			boolean accountNonExpired = true;
+			if(account.getExpireOn() != null ){
+				accountNonExpired = account.getExpireOn() > System.currentTimeMillis();
+			}
 			List<GrantedAuthority> authorities = Collections.emptyList();
 			UserDetails userDetails = new CustomUserDetails(account.getUserId(), account.getPassword(), account.getEnabled(), accountNonExpired, true, true, authorities);
 			CustomUserDetails details = (CustomUserDetails) userDetails;

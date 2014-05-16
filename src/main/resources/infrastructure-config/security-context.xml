@@ -9,8 +9,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<security:global-method-security
-		secured-annotations="enabled" authentication-manager-ref="authenticationManager"
-		proxy-target-class="true" pre-post-annotations="enabled">
+		secured-annotations="enabled" authentication-manager-ref="authenticationManager" pre-post-annotations="enabled">
 	</security:global-method-security>
 
 	<security:http pattern="/resources/**" security="none" />
@@ -30,7 +29,9 @@
 
 		<security:intercept-url pattern="/login"
 			access="permitAll" requires-channel="https" />
-		<security:intercept-url pattern="/account/forgot/password"
+			<security:intercept-url pattern="/forgotPassword"
+			access="permitAll" requires-channel="https" />
+		<security:intercept-url pattern="/register"
 			access="permitAll" requires-channel="https" />
 
 		<security:intercept-url pattern="/**"

@@ -15,6 +15,6 @@ public interface IUserRepository {
 
 	void saveUser(User user);
 	User getUserByUserId(String userId);
-
 	DataTable<User> getDataTable(Map<String, String> params);
+	
 }
