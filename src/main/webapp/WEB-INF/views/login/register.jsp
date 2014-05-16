@@ -50,8 +50,8 @@
 					<form:errors path="gender" />
 				</div>
 				<div class="form-group">
-					<form:input path="dob" class="form-control"
-						placeholder="Date of birth" />
+					<form:input id="dob" path="dob" class="form-control"
+						placeholder="Date of birth" data-inputmask="'alias': 'dd/mm/yyyy'" />
 					<form:errors path="dob" />
 				</div>
 				<div class="form-group">
@@ -111,9 +111,17 @@
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/notify.min.js"></script>
+		 <script src="${pageContext.request.contextPath}/resources/js/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+      
+      <script src="${pageContext.request.contextPath}/resources/js/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+      
+      <script src="${pageContext.request.contextPath}/resources/js/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
 	<script type="text/javascript">
+	
 	$('document').ready(function() {
-
+		 //Datemask dd/mm/yyyy
+        $("#dob").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+		 
 		<c:if test="${not empty notifications}">
 		<c:forEach items="${notifications}" var="notification">
 		$.notify('${notification.message}', '${notification.style}','${notification.position}');
