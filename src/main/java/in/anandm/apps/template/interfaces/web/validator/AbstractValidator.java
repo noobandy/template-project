@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web.login.validator;
+package in.anandm.apps.template.interfaces.web.validator;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +40,7 @@ public abstract class AbstractValidator implements Validator {
 		this.skipProperties.remove(property);
 	}
 
-	boolean validationRequired(String property){
+	public boolean validationRequired(String property){
 		return !(skipProperties.contains(property));
 	}
 }

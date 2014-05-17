@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web;
+package in.anandm.apps.template.interfaces.web.controller;
 
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.service.IUserService;

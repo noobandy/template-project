@@ -1,15 +1,15 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web.login.controller;
+package in.anandm.apps.template.interfaces.web.controller;
 
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.service.IUserService;
-import in.anandm.apps.template.interfaces.web.Notification;
-import in.anandm.apps.template.interfaces.web.NotificationHelper;
-import in.anandm.apps.template.interfaces.web.login.dto.RegistrationFormDTO;
-import in.anandm.apps.template.interfaces.web.login.validator.AbstractValidator;
+import in.anandm.apps.template.interfaces.web.dto.Notification;
+import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
+import in.anandm.apps.template.interfaces.web.helper.NotificationHelper;
+import in.anandm.apps.template.interfaces.web.validator.AbstractValidator;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;

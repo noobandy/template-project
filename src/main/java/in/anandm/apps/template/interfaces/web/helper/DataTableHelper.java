@@ -1,7 +1,9 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web;
+package in.anandm.apps.template.interfaces.web.helper;
+
+import in.anandm.apps.template.interfaces.web.dto.Browser;
 
 import java.util.ArrayList;
 import java.util.List;

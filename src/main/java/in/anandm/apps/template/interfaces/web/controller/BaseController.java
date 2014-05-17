@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web.login.controller;
+package in.anandm.apps.template.interfaces.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

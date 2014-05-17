@@ -3,7 +3,7 @@
  */
 package in.anandm.apps.template.domain.model.role;
 
-import in.anandm.apps.template.interfaces.web.DataTable;
+import in.anandm.apps.template.interfaces.web.dto.DataTable;
 
 import java.util.Map;
 

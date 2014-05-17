@@ -1,4 +1,4 @@
-package in.anandm.apps.template.interfaces.web;
+package in.anandm.apps.template.interfaces.web.dto;
 
 public class ColumnMetaData {
 

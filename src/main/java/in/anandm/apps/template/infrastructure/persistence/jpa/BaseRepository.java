@@ -3,8 +3,8 @@
  */
 package in.anandm.apps.template.infrastructure.persistence.jpa;
 
-import in.anandm.apps.template.interfaces.web.ColumnMetaData;
-import in.anandm.apps.template.interfaces.web.DataTable;
+import in.anandm.apps.template.interfaces.web.dto.ColumnMetaData;
+import in.anandm.apps.template.interfaces.web.dto.DataTable;
 
 import java.io.Serializable;
 import java.util.ArrayList;

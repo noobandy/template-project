@@ -5,7 +5,7 @@ package in.anandm.apps.template.infrastructure.persistence.jpa;
 
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.interfaces.web.DataTable;
+import in.anandm.apps.template.interfaces.web.dto.DataTable;
 
 import java.util.Map;
 
