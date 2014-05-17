@@ -19,64 +19,74 @@ public class UserAccount implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
+
 	private String userId;
-	private String password;
+	private char[] password;
 	private Boolean admin;
 	private Boolean enabled;
 	private Long expireOn;
+	private char[] verificationKey;
+	private Long verifiedOn;
 
-	public UserAccount(String userId, String password, Boolean admin,
-			Boolean enabled, Long expireOn) {
+	public UserAccount(String userId, char[] password, Boolean admin,
+			Long expireOn,char[] verificationKey) {
 		super();
 		this.userId = userId;
 		this.password = password;
 		this.admin = admin;
-		this.enabled = enabled;
 		this.expireOn = expireOn;
+		this.verificationKey = verificationKey;
+		this.enabled = false;
 	}
 
-	/**
-	 * @return the userId
-	 */
 	public String getUserId() {
 		return userId;
 	}
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
+	public char[] getPassword() {
 		return password;
 	}
 
-	/**
-	 * @return the admin
-	 */
 	public Boolean getAdmin() {
 		return admin;
 	}
 
-	/**
-	 * @return the enabled
-	 */
 	public Boolean getEnabled() {
 		return enabled;
 	}
 
-
-	/**
-	 * @return the expireOn
-	 */
 	public Long getExpireOn() {
 		return expireOn;
+	}
+
+	public char[] getVerificationKey() {
+		return verificationKey;
+	}
+
+	public Long getVerifiedOn() {
+		return verifiedOn;
+	}
+
+	public void changePassword(String newPassword){
+		this.password = newPassword.toCharArray();
+	}
+	
+	public boolean isExpired(){
+		return (expireOn != null && expireOn < System.currentTimeMillis());
+	}
+
+	public void verify(String verificationKey){
+		if(String.valueOf(this.verificationKey).equals(verificationKey)){
+			this.verifiedOn = System.currentTimeMillis();
+			this.enabled = Boolean.valueOf(true);
+		}
+	}
+
+	public boolean isVerified(){
+		return (verifiedOn != null);
 	}
 
 	UserAccount() {
 		super();
 	}
-
-	
-
-
 }

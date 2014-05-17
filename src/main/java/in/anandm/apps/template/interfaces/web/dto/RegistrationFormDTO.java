@@ -4,16 +4,9 @@
 package in.anandm.apps.template.interfaces.web.dto;
 
 import in.anandm.apps.template.domain.model.user.Gender;
-import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.domain.model.user.UserAccount;
-import in.anandm.apps.template.domain.model.user.UserProfile;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-
-import org.apache.commons.codec.binary.Hex;
 
 /**
  * @author anandm
@@ -91,15 +84,4 @@ public class RegistrationFormDTO implements Serializable {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public User asUser() throws NoSuchAlgorithmException{
-		MessageDigest digest = MessageDigest.getInstance("SHA-512");
-		String saltAndPass = password+"{"+userId+"}";
-		digest.update(saltAndPass.getBytes());
-		
-		UserAccount userAccount = new UserAccount(userId,Hex.encodeHexString(digest.digest()), false, true, null);
-		UserProfile userProfile = new UserProfile(firstName, lastName, gender, dob.getTime(), emailId, null, null);
-		return  new User(userAccount, userProfile);
-	}
-
-
 }

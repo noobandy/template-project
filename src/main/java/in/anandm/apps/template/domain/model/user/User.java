@@ -30,6 +30,9 @@ public class User {
 	private UserProfile userProfile;
 
 	@OneToMany(mappedBy="user")
+	private List<PasswordResetRequest> passwordResetRequests = new ArrayList<PasswordResetRequest>();
+
+	@OneToMany(mappedBy="user")
 	private List<FailedLogin> failedLogins = new ArrayList<FailedLogin>();
 	@OneToMany(mappedBy="user")
 	private List<SuccessfullLogin> successfullLogins = new ArrayList<SuccessfullLogin>();
@@ -44,6 +47,13 @@ public class User {
 		this.userAccount = userAccount;
 		this.userProfile = userProfile;
 	}
+
+
+
+	public List<PasswordResetRequest> getPasswordResetRequests() {
+		return passwordResetRequests;
+	}
+
 
 	/**
 	 * @return the userAccount

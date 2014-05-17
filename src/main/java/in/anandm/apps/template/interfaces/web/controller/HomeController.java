@@ -1,9 +1,5 @@
 package in.anandm.apps.template.interfaces.web.controller;
 
-import in.anandm.apps.template.domain.model.user.Gender;
-import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.domain.model.user.UserAccount;
-import in.anandm.apps.template.domain.model.user.UserProfile;
 import in.anandm.apps.template.domain.service.IUserService;
 
 import java.text.DateFormat;
@@ -43,12 +39,6 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
-		UserAccount userAccount = new UserAccount("anandm", "anandm", true, true, System.currentTimeMillis());
-		UserProfile userProfile = new UserProfile("Anand", "Mohan", Gender.MALE, 
-				System.currentTimeMillis(), "anandm@mkcl.org", "8108131239",null);
-		User user = new User(userAccount, userProfile);
-		userService.addUser(user);
 		
 		return "index";
 	}

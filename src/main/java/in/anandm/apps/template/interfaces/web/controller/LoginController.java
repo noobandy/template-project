@@ -5,6 +5,7 @@ package in.anandm.apps.template.interfaces.web.controller;
 
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.User;
+import in.anandm.apps.template.domain.service.IEmailService;
 import in.anandm.apps.template.domain.service.IUserService;
 import in.anandm.apps.template.interfaces.web.dto.Notification;
 import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
@@ -49,6 +50,8 @@ public class LoginController extends BaseController {
 	@Autowired
 	private AbstractValidator registrationFormDTOValidator;
 
+	private IEmailService emailService;
+
 	static{
 		attemptReason.add("duplicateSession");
 		attemptReason.add("logOut");
@@ -73,12 +76,22 @@ public class LoginController extends BaseController {
 			return "login/register";
 		}else{
 			//register user here
-			userService.addUser(registrationFormDTO.asUser());
+
+			userService.registerUser(registrationFormDTO);
 			NotificationHelper.notify(new Notification("success", "success", "top left", "You are registered successfully."));
+			NotificationHelper.notify(new Notification("success", "success", "top left", "An email has been sent for verification."));
+
+
 			return "redirect:/login";
 		}
+	}
 
 
+	@RequestMapping(value="/verify",method=RequestMethod.GET)
+	public String verifyEmail(Model model,@RequestParam(value="key") String key){
+
+		model.addAttribute("registrationFormDTO", new RegistrationFormDTO());
+		return "login/register";
 	}
 
 	@RequestMapping(value="/forgotPassword",method=RequestMethod.GET)
@@ -90,7 +103,7 @@ public class LoginController extends BaseController {
 	public String forgotPasswordPOST(Model model,@RequestParam("userId") String userId,
 			@RequestParam("recaptcha_challenge_field") String challenge,
 			@RequestParam("recaptcha_response_field") String uresponse,HttpServletRequest request
-			){
+			) throws NoSuchAlgorithmException{
 
 		String remoteAddr = request.getRemoteAddr();
 		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
@@ -102,6 +115,7 @@ public class LoginController extends BaseController {
 		if (!reCaptchaResponse.isValid()) {
 			User foundUser = userRepository.getUserByUserId(userId);
 			if(foundUser != null){
+				userService.initiatePasswordResetRequest(foundUser, remoteAddr);
 				NotificationHelper.notify(new Notification("success", "success", "top left", "Instructions to reset your password has been sent to you at your registered email id."));
 				return "redirect:/login";
 			}else{
