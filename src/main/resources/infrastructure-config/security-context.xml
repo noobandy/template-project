@@ -31,7 +31,11 @@
 			access="permitAll" requires-channel="https" />
 			<security:intercept-url pattern="/forgotPassword"
 			access="permitAll" requires-channel="https" />
+			<security:intercept-url pattern="/resetPassword"
+			access="permitAll" requires-channel="https" />
 		<security:intercept-url pattern="/register"
+			access="permitAll" requires-channel="https" />
+			<security:intercept-url pattern="/verify"
 			access="permitAll" requires-channel="https" />
 
 		<security:intercept-url pattern="/**"

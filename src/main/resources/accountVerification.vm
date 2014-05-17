@@ -1,0 +1,13 @@
+  <HTML>
+    <HEAD>
+      <TITLE>Account verification</TITLE>
+    </HEAD>
+
+    <BODY>
+      <h4>WelCome To Template</h4>
+      <hr/>
+     		 <a href="https://localhost:8080/template/verify?key==$verificationKey">Click Here</a>
+     		 <br/> to verify your account.
+    </BODY>
+  </HTML>
+

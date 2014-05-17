@@ -5,7 +5,6 @@ package in.anandm.apps.template.interfaces.web.controller;
 
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.domain.service.IEmailService;
 import in.anandm.apps.template.domain.service.IUserService;
 import in.anandm.apps.template.interfaces.web.dto.Notification;
 import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
@@ -50,7 +49,6 @@ public class LoginController extends BaseController {
 	@Autowired
 	private AbstractValidator registrationFormDTOValidator;
 
-	private IEmailService emailService;
 
 	static{
 		attemptReason.add("duplicateSession");
@@ -90,9 +88,12 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="/verify",method=RequestMethod.GET)
 	public String verifyEmail(Model model,@RequestParam(value="key") String key){
 
-		model.addAttribute("registrationFormDTO", new RegistrationFormDTO());
-		return "login/register";
+		userService.verifyUserAccount(key);
+		NotificationHelper.notify(new Notification("success", "success", "top left", "Account successfully verified.Login using your credentials"));
+
+		return "redirect:/login";
 	}
+
 
 	@RequestMapping(value="/forgotPassword",method=RequestMethod.GET)
 	public String forgotPassword(Model model){
@@ -127,6 +128,17 @@ public class LoginController extends BaseController {
 			return "login/forgotPassword";
 		}
 
+	}
+
+	@RequestMapping(value="/resetPassword",method=RequestMethod.GET)
+	public String resetPassword(Model model,@RequestParam(value="key") String key,
+			@RequestParam(value="password") String password){
+
+		userService.resetPassword(key, password);
+
+		NotificationHelper.notify(new Notification("success", "success", "top left", "Password successfully changed.Login using new password"));
+
+		return "redirect:/login";
 	}
 
 

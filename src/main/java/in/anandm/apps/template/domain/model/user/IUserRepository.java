@@ -15,6 +15,7 @@ public interface IUserRepository {
 
 	void saveUser(User user);
 	User getUserByUserId(String userId);
+	User getUserByVerificationKey(String verificationKey);
 	DataTable<User> getDataTable(Map<String, String> params);
 	
 }

@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PasswordResetRequest {
 
-	private char[] resetKey;
+	private String resetKey;
 	private Long initiatedOn;
 	private Long expiredOn;
 
@@ -34,7 +34,7 @@ public class PasswordResetRequest {
 	 * @param hostAddress
 	 * @param user
 	 */
-	public PasswordResetRequest(char[] resetKey, Long initiatedOn,
+	public PasswordResetRequest(String resetKey, Long initiatedOn,
 			HostAddress hostAddress, User user) {
 		super();
 		this.resetKey = resetKey;
@@ -42,7 +42,7 @@ public class PasswordResetRequest {
 		this.hostAddress = hostAddress;
 		this.user = user;
 	}
-	public char[] getResetKey() {
+	public String getResetKey() {
 		return resetKey;
 	}
 	public Long getInitiatedOn() {
@@ -67,7 +67,7 @@ public class PasswordResetRequest {
 		this.expiredOn = System.currentTimeMillis();
 	}
 	public boolean verify(String resetKey){
-		return String.valueOf(this.resetKey).equals(resetKey);
+		return this.resetKey.equals(resetKey);
 	}
 
 	@Id

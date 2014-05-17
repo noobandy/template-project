@@ -21,15 +21,15 @@ public class UserAccount implements Serializable {
 
 
 	private String userId;
-	private char[] password;
+	private String password;
 	private Boolean admin;
 	private Boolean enabled;
 	private Long expireOn;
-	private char[] verificationKey;
+	private String verificationKey;
 	private Long verifiedOn;
 
-	public UserAccount(String userId, char[] password, Boolean admin,
-			Long expireOn,char[] verificationKey) {
+	public UserAccount(String userId,String password, Boolean admin,
+			Long expireOn,String verificationKey) {
 		super();
 		this.userId = userId;
 		this.password = password;
@@ -43,7 +43,7 @@ public class UserAccount implements Serializable {
 		return userId;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
@@ -59,7 +59,7 @@ public class UserAccount implements Serializable {
 		return expireOn;
 	}
 
-	public char[] getVerificationKey() {
+	public String getVerificationKey() {
 		return verificationKey;
 	}
 
@@ -68,9 +68,9 @@ public class UserAccount implements Serializable {
 	}
 
 	public void changePassword(String newPassword){
-		this.password = newPassword.toCharArray();
+		this.password = newPassword;
 	}
-	
+
 	public boolean isExpired(){
 		return (expireOn != null && expireOn < System.currentTimeMillis());
 	}

@@ -38,4 +38,13 @@ public class UserRepository extends BaseRepository<User, Long> implements IUserR
 	public DataTable<User> getDataTable(Map<String, String> params) {
 		return getDataTable(User.class, params);
 	}
+
+	@Override
+	public User getUserByVerificationKey(String verificationKey) {
+
+		Search search = new Search(User.class);
+		search.addFilter(Filter.equal("userAccount.verificationKey", verificationKey));
+		User foundUser = searchUnique(search);
+		return foundUser;
+	}
 }

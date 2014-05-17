@@ -64,10 +64,10 @@ public class UserService implements IUserService {
 	public void registerUser(RegistrationFormDTO registrationFormDTO) {
 
 		String userId = registrationFormDTO.getUserId();
-		char[] password = HashingUtility.hashedPassword(registrationFormDTO.getPassword(), registrationFormDTO.getUserId());
+		String password = String.valueOf(HashingUtility.hashedPassword(registrationFormDTO.getPassword(), registrationFormDTO.getUserId()));
 		String verificationKey = UUID.randomUUID().toString();
 
-		UserAccount userAccount = new UserAccount(userId, password, false, null, HashingUtility.hexEncodedHash(verificationKey.getBytes(), "SHA-512"));
+		UserAccount userAccount = new UserAccount(userId, password, false, null, String.valueOf(HashingUtility.hexEncodedHash(verificationKey.getBytes(), "SHA-512")));
 
 		String firstName = registrationFormDTO.getFirstName();
 		String lastName = registrationFormDTO.getLastName();
@@ -81,38 +81,47 @@ public class UserService implements IUserService {
 		userRepository.saveUser(user);
 
 		emailService.sendAccountVerificationEmail(emailId, verificationKey);
+	}
 
-
-
-
+	@Override
+	public void verifyUserAccount(String verificationKey) {
+		String hashedKey = String.valueOf(HashingUtility.hexEncodedHash(verificationKey.getBytes(), "SHA-512"));
+		User user = userRepository.getUserByVerificationKey(hashedKey);
+		user.getUserAccount().verify(hashedKey);
+		userRepository.saveUser(user);
 	}
 
 	@Override
 	public void initiatePasswordResetRequest(User user,String hostAddress) throws NoSuchAlgorithmException {
 		String resetKey = UUID.randomUUID().toString();
 
-		PasswordResetRequest passwordResetRequest = new PasswordResetRequest(HashingUtility.hexEncodedHash(resetKey.getBytes(), "SHA-512"), System.currentTimeMillis(), new HostAddress(hostAddress), user);
+		PasswordResetRequest passwordResetRequest = new PasswordResetRequest(String.valueOf(HashingUtility.hexEncodedHash(resetKey.getBytes(), "SHA-512")), System.currentTimeMillis(), new HostAddress(hostAddress), user);
 		passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
 		emailService.sendPasswordResetEmail(user.getUserProfile().getEmailId(), resetKey);
 	}
 
 	@Override
 	public void resetPassword(String resetKey, String newPassword) {
-		PasswordResetRequest passwordResetRequest = passwordResetRequestRepository.getPasswordResetRequestByKey(resetKey);
+		String hashedKey = String.valueOf(HashingUtility.hexEncodedHash(resetKey.getBytes(), "SHA-512"));
+
+		PasswordResetRequest passwordResetRequest = passwordResetRequestRepository.getPasswordResetRequestByKey(hashedKey);
 
 		if(passwordResetRequest == null){
 			throw new PasswordResetRequestNotFound();
 		}
 
-		if(passwordResetRequest.verify(resetKey)){
-			User user = passwordResetRequest.getUser();
-			user.getUserAccount().changePassword(newPassword);
-			userRepository.saveUser(user);
-			passwordResetRequest.expire();
-			passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
-		}else{
-			throw new PasswordResetRequestExpired();
+		if(passwordResetRequest.isExpired()){
+			throw new PasswordResetRequestExpired();	
 		}
+		
+		User user = passwordResetRequest.getUser();
+		String hashedPassword = String.valueOf(HashingUtility.hashedPassword(newPassword, user.getUserAccount().getUserId()));
+		user.getUserAccount().changePassword(hashedPassword);
+		userRepository.saveUser(user);
+		passwordResetRequest.expire();
+		passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
 	}
+
+
 
 }

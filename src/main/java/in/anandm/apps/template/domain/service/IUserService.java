@@ -19,6 +19,9 @@ public interface IUserService {
 	void registerUser(RegistrationFormDTO registrationFormDTO);
 	
 	@Transactional
+	void verifyUserAccount(String verificationKey);
+	
+	@Transactional
 	void initiatePasswordResetRequest(User user,String hostAddress) throws NoSuchAlgorithmException;
 	
 	@Transactional
