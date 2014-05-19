@@ -49,6 +49,34 @@ public class User {
 	}
 
 
+	public boolean isUserAccountVerified(){
+		return userAccount.isVerified();
+	}
+
+	public String requestVerification(){
+		return userAccount.requestVerification();
+	}
+
+	public void verify(String verificationKey){
+		userAccount.verify(verificationKey);
+
+	}
+
+	public boolean isAdmin(){
+		return userAccount.getAdmin();
+	}
+
+	public void changePassword(String newPassword){
+		userAccount.changePassword(newPassword);	
+	}
+
+	public boolean isEnabled(){
+		return userAccount.getEnabled();
+	}
+
+	public boolean isExpired(){
+		return userAccount.isExpired();
+	}
 
 	public List<PasswordResetRequest> getPasswordResetRequests() {
 		return passwordResetRequests;

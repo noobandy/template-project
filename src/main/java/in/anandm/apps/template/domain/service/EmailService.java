@@ -32,10 +32,11 @@ public class EmailService implements IEmailService {
 
 
 	@Override
-	public void sendAccountVerificationEmail(final String emailId,
+	public void sendAccountVerificationEmail(final String userId,final String emailId,
 			String verificationKey) {
 		LoggerFactory.getLogger(getClass()).info("sending email... emailId : {}, vereficationKey : {}",emailId,verificationKey);
 		final Map<String, Object> mailModel = new HashMap<String, Object>();
+		mailModel.put("userId", userId);
 		mailModel.put("verificationKey", verificationKey);
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -43,7 +44,7 @@ public class EmailService implements IEmailService {
 				message.setTo(emailId);
 				message.setFrom("noobandy1364@gmail.com");
 				message.setSubject("Account Verification");
-				
+
 				String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "accountVerification.vm", "utf8", mailModel);
 
 				message.setText(body, true);
@@ -54,10 +55,11 @@ public class EmailService implements IEmailService {
 	}
 
 	@Override
-	public void sendPasswordResetEmail(final String emailId,final String passwordResetKey) {
+	public void sendPasswordResetEmail(final Long requestId,final String emailId,final String passwordResetKey) {
 		LoggerFactory.getLogger(getClass()).info("sending email... emailId : {}, resteKey : {}",emailId,passwordResetKey);
-		
+
 		final Map<String, Object> mailModel = new HashMap<String, Object>();
+		mailModel.put("requestId", requestId);
 		mailModel.put("passwordResetKey", passwordResetKey);
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -65,7 +67,7 @@ public class EmailService implements IEmailService {
 				message.setTo(emailId);
 				message.setFrom("noobandy1364@gmail.com");
 				message.setSubject("Account Verification");
-				
+
 				String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "passwordReset.vm", "utf8", mailModel);
 
 				message.setText(body, true);

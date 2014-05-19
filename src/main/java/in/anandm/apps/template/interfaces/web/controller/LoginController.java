@@ -3,7 +3,9 @@
  */
 package in.anandm.apps.template.interfaces.web.controller;
 
+import in.anandm.apps.template.domain.model.user.IPasswordResetRequestRepository;
 import in.anandm.apps.template.domain.model.user.IUserRepository;
+import in.anandm.apps.template.domain.model.user.PasswordResetRequest;
 import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.service.IUserService;
 import in.anandm.apps.template.interfaces.web.dto.Notification;
@@ -47,6 +49,9 @@ public class LoginController extends BaseController {
 	private IUserRepository userRepository;
 
 	@Autowired
+	private IPasswordResetRequestRepository passwordResetRequestRepository;
+
+	@Autowired
 	private AbstractValidator registrationFormDTOValidator;
 
 
@@ -76,6 +81,7 @@ public class LoginController extends BaseController {
 			//register user here
 
 			userService.registerUser(registrationFormDTO);
+
 			NotificationHelper.notify(new Notification("success", "success", "top left", "You are registered successfully."));
 			NotificationHelper.notify(new Notification("success", "success", "top left", "An email has been sent for verification."));
 
@@ -86,9 +92,16 @@ public class LoginController extends BaseController {
 
 
 	@RequestMapping(value="/verify",method=RequestMethod.GET)
-	public String verifyEmail(Model model,@RequestParam(value="key") String key){
+	public String verifyEmail(Model model,@RequestParam(value="userId") String userId,
+			@RequestParam(value="key") String key){
 
-		userService.verifyUserAccount(key);
+		User user = userRepository.getUserByUserId(userId);
+
+
+		user.verify(key);
+
+		userRepository.saveUser(user);
+
 		NotificationHelper.notify(new Notification("success", "success", "top left", "Account successfully verified.Login using your credentials"));
 
 		return "redirect:/login";
@@ -113,10 +126,12 @@ public class LoginController extends BaseController {
 		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr,
 				challenge, uresponse);
 
-		if (!reCaptchaResponse.isValid()) {
+		if (reCaptchaResponse.isValid()) {
 			User foundUser = userRepository.getUserByUserId(userId);
 			if(foundUser != null){
+
 				userService.initiatePasswordResetRequest(foundUser, remoteAddr);
+
 				NotificationHelper.notify(new Notification("success", "success", "top left", "Instructions to reset your password has been sent to you at your registered email id."));
 				return "redirect:/login";
 			}else{
@@ -131,14 +146,62 @@ public class LoginController extends BaseController {
 	}
 
 	@RequestMapping(value="/resetPassword",method=RequestMethod.GET)
-	public String resetPassword(Model model,@RequestParam(value="key") String key,
-			@RequestParam(value="password") String password){
+	public String resetPassword(Model model,@RequestParam(value="requestId") Long requestId,
+			@RequestParam(value="key") String key){
 
-		userService.resetPassword(key, password);
+		PasswordResetRequest request = passwordResetRequestRepository.getPasswordResetRequestById(requestId);
 
-		NotificationHelper.notify(new Notification("success", "success", "top left", "Password successfully changed.Login using new password"));
+		model.addAttribute("requestId", request.getId());
 
-		return "redirect:/login";
+		model.addAttribute("key", key);
+
+		return "login/resetPassword";
+	}
+
+	@RequestMapping(value="/resetPassword",method=RequestMethod.POST)
+	public String resetPasswordPOST(Model model,@RequestParam(value="requestId") Long requestId,
+			@RequestParam(value="key") String key,
+			@RequestParam(value="password") String password,
+			@RequestParam(value="repeatPassword") String repeatPassword,
+			@RequestParam("recaptcha_challenge_field") String challenge,
+			@RequestParam("recaptcha_response_field") String uresponse,
+			HttpServletRequest request){
+
+		String remoteAddr = request.getRemoteAddr();
+		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+		reCaptcha.setPrivateKey("6LeLO-USAAAAAK-Hr4Ws546OF1DZm48LginxcegZ");// private key
+
+		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr,
+				challenge, uresponse);
+
+		if (reCaptchaResponse.isValid()) {
+
+			if(repeatPassword.equals(password)){
+				PasswordResetRequest passwordResetRequest = passwordResetRequestRepository.getPasswordResetRequestById(requestId);
+
+				passwordResetRequest.resetPassword(key,password);
+
+				passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
+
+				NotificationHelper.notify(new Notification("success", "success", "top left", "Password successfully changed.Login using new password"));
+
+				return "redirect:/login";
+			}else{		
+				NotificationHelper.notify(new Notification("error", "error", "top left", "password does not match retry"));
+				
+				model.addAttribute("requestId", requestId);
+				model.addAttribute("key", key);
+				return "login/resetPassword";
+			}
+		}else{
+			NotificationHelper.notify(new Notification("error", "error", "top left", "Captcha does not match retry"));
+			
+			model.addAttribute("requestId", requestId);
+			model.addAttribute("key", key);
+			return "login/resetPassword";
+		}
+
+
 	}
 
 

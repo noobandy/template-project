@@ -6,6 +6,8 @@ package in.anandm.apps.template.infrastructure.persistence.jpa;
 import in.anandm.apps.template.domain.model.user.IPasswordResetRequestRepository;
 import in.anandm.apps.template.domain.model.user.PasswordResetRequest;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.googlecode.genericdao.search.Filter;
@@ -26,10 +28,18 @@ implements IPasswordResetRequestRepository {
 	}
 
 	@Override
-	public PasswordResetRequest getPasswordResetRequestByKey(String resetKey) {
+	public PasswordResetRequest getPasswordResetRequestById(Long id) {
+
+		return find(id);
+	}
+
+	@Override
+	public List<PasswordResetRequest> getAllPasswordRequestOfUser(String userId) {
+
 		Search search = new Search(PasswordResetRequest.class);
-		search.addFilter(Filter.equal("resetKey", resetKey));
-		return searchUnique(search);
+		search.addFilter(Filter.equal("user.userAccount.userId", userId));
+
+		return search(search);
 	}
 
 }

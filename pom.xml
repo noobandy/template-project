@@ -255,8 +255,10 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
-
-
+		<!-- Commons -->
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.3.2</version>
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

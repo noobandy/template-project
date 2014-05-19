@@ -3,12 +3,18 @@
  */
 package in.anandm.apps.template.domain.model.user;
 
+import in.anandm.apps.template.interfaces.web.helper.HashingUtility;
+
+import java.util.UUID;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.apache.commons.lang.Validate;
 
 /**
  * @author anandm
@@ -34,14 +40,48 @@ public class PasswordResetRequest {
 	 * @param hostAddress
 	 * @param user
 	 */
-	public PasswordResetRequest(String resetKey, Long initiatedOn,
-			HostAddress hostAddress, User user) {
+	public PasswordResetRequest(User user,HostAddress hostAddress) {
 		super();
-		this.resetKey = resetKey;
-		this.initiatedOn = initiatedOn;
 		this.hostAddress = hostAddress;
 		this.user = user;
 	}
+
+	public String initiateRequest(){
+		String newResetKey = UUID.randomUUID().toString();
+		String hashedKey = HashingUtility.sha512Hash(newResetKey);
+
+		resetKey = hashedKey;
+		initiatedOn = System.currentTimeMillis();
+
+		return newResetKey;
+
+	}
+
+	private boolean isExpired(){
+		return (expiredOn != null && expiredOn < System.currentTimeMillis());
+	}
+
+
+	public void resetPassword(String resetKey,String newPassword){
+		Validate.notEmpty(resetKey, "resetKey is empty");
+		Validate.notEmpty(newPassword, "newPassword is empty");
+
+		if(isExpired()){
+			throw new IllegalStateException("Request is expired");
+		}
+		String hashedResetKey = HashingUtility.sha512Hash(resetKey);
+		if(this.resetKey.equals(hashedResetKey)){
+			user.changePassword(newPassword);
+			expiredOn = System.currentTimeMillis();
+		}else{
+			throw new IllegalArgumentException("Invalid resetKey");
+		}
+
+
+
+	}
+
+
 	public String getResetKey() {
 		return resetKey;
 	}
@@ -58,17 +98,6 @@ public class PasswordResetRequest {
 		return user;
 	}
 
-
-	public boolean isExpired(){
-		return (expiredOn != null && expiredOn < System.currentTimeMillis());
-	}
-
-	public void expire(){
-		this.expiredOn = System.currentTimeMillis();
-	}
-	public boolean verify(String resetKey){
-		return this.resetKey.equals(resetKey);
-	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

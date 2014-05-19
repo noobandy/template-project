@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<%@ page isErrorPage="true" %>
+<%@ page isErrorPage="true"%>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>AdminLTE | 500 Error</title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!-- bootstrap 3.0.2 -->
-        <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- font Awesome -->
-        <link href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <!-- Ionicons -->
-        <link href="${pageContext.request.contextPath}/resources/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <!-- Theme style -->
-        <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-        
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+<head>
+<meta charset="UTF-8">
+<title>AdminLTE | 500 Error</title>
+<meta
+	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+	name='viewport'>
+<!-- bootstrap 3.0.2 -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- font Awesome -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- Ionicons -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/ionicons.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- Theme style -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/AdminLTE.css"
+	rel="stylesheet" type="text/css" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.${pageContext.request.contextPath}/resources/js/1.3.0/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
+</head>
+<body>
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>500 Error Page</h1>
@@ -59,6 +69,27 @@
 					</div>
 					<!-- /.input-group -->
 				</form>
+				<table class="table" border="1">
+					<tr valign="top">
+						<td width="40%"><b>Error:</b></td>
+						<td>${pageContext.exception}</td>
+					</tr>
+					<tr valign="top">
+						<td><b>URI:</b></td>
+						<td>${pageContext.errorData.requestURI}</td>
+					</tr>
+					<tr valign="top">
+						<td><b>Status code:</b></td>
+						<td>${pageContext.errorData.statusCode}</td>
+					</tr>
+					<tr valign="top">
+						<td><b>Stack trace:</b></td>
+						<td><c:forEach var="trace"
+								items="${pageContext.exception.stackTrace}">
+								<p>${trace}</p>
+							</c:forEach></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<!-- /.error-page -->
@@ -67,13 +98,20 @@
 	<!-- /.content -->
 
 
-        <!-- jQuery 2.0.2 -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="${pageContext.request.contextPath}/resources/js/AdminLTE/app.js" type="text/javascript"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="${pageContext.request.contextPath}/resources/js/AdminLTE/demo.js" type="text/javascript"></script>
-    </body>
+	<!-- jQuery 2.0.2 -->
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"
+		type="text/javascript"></script>
+	<!-- AdminLTE App -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/AdminLTE/app.js"
+		type="text/javascript"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/AdminLTE/demo.js"
+		type="text/javascript"></script>
+</body>
 </html>

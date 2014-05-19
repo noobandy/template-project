@@ -9,6 +9,6 @@ package in.anandm.apps.template.domain.service;
  */
 public interface IEmailService {
 
-	void sendAccountVerificationEmail(String emailId,String verificationKey);
-	void sendPasswordResetEmail(String emailid,String passwordResetKey);
+	void sendAccountVerificationEmail(String userId,String emailId,String verificationKey);
+	void sendPasswordResetEmail(Long requestId,String emailid,String passwordResetKey);
 }

@@ -12,20 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface IUserService {
 
-	@Transactional
-	void addUser(User user);
 
 	@Transactional
 	void registerUser(RegistrationFormDTO registrationFormDTO);
-	
-	@Transactional
-	void verifyUserAccount(String verificationKey);
-	
+
 	@Transactional
 	void initiatePasswordResetRequest(User user,String hostAddress) throws NoSuchAlgorithmException;
-	
-	@Transactional
-	void resetPassword(String resetKey,String newPassword);
 
 	DataTable<UserDTO> getDataTable(Map<String, String> params);
 }

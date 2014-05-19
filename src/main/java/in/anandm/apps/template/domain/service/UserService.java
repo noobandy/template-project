@@ -11,18 +11,14 @@ import in.anandm.apps.template.domain.model.user.PasswordResetRequest;
 import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.model.user.UserAccount;
 import in.anandm.apps.template.domain.model.user.UserProfile;
-import in.anandm.apps.template.domain.shared.exception.PasswordResetRequestExpired;
-import in.anandm.apps.template.domain.shared.exception.PasswordResetRequestNotFound;
 import in.anandm.apps.template.interfaces.web.dto.DataTable;
 import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
 import in.anandm.apps.template.interfaces.web.dto.UserDTO;
-import in.anandm.apps.template.interfaces.web.helper.HashingUtility;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,11 +37,7 @@ public class UserService implements IUserService {
 	@Autowired
 	private IEmailService emailService;
 
-	@Override
-	public void addUser(User user) {
-		userRepository.saveUser(user);
-	}
-
+	
 	@Override
 	public DataTable<UserDTO> getDataTable(Map<String, String> params) {
 		DataTable<User> userDataTable = userRepository.getDataTable(params);
@@ -64,10 +56,9 @@ public class UserService implements IUserService {
 	public void registerUser(RegistrationFormDTO registrationFormDTO) {
 
 		String userId = registrationFormDTO.getUserId();
-		String password = String.valueOf(HashingUtility.hashedPassword(registrationFormDTO.getPassword(), registrationFormDTO.getUserId()));
-		String verificationKey = UUID.randomUUID().toString();
+		String password = registrationFormDTO.getPassword();
 
-		UserAccount userAccount = new UserAccount(userId, password, false, null, String.valueOf(HashingUtility.hexEncodedHash(verificationKey.getBytes(), "SHA-512")));
+		UserAccount userAccount = new UserAccount(userId, password);
 
 		String firstName = registrationFormDTO.getFirstName();
 		String lastName = registrationFormDTO.getLastName();
@@ -78,48 +69,27 @@ public class UserService implements IUserService {
 		UserProfile userProfile = new UserProfile(firstName, lastName, gender, dob, emailId, null, null);
 
 		User user = new User(userAccount, userProfile);
+
+		String verificationKey = user.requestVerification();
+
 		userRepository.saveUser(user);
 
-		emailService.sendAccountVerificationEmail(emailId, verificationKey);
+		emailService.sendAccountVerificationEmail(userId,emailId, verificationKey);
 	}
 
-	@Override
-	public void verifyUserAccount(String verificationKey) {
-		String hashedKey = String.valueOf(HashingUtility.hexEncodedHash(verificationKey.getBytes(), "SHA-512"));
-		User user = userRepository.getUserByVerificationKey(hashedKey);
-		user.getUserAccount().verify(hashedKey);
-		userRepository.saveUser(user);
-	}
+
 
 	@Override
 	public void initiatePasswordResetRequest(User user,String hostAddress) throws NoSuchAlgorithmException {
-		String resetKey = UUID.randomUUID().toString();
 
-		PasswordResetRequest passwordResetRequest = new PasswordResetRequest(String.valueOf(HashingUtility.hexEncodedHash(resetKey.getBytes(), "SHA-512")), System.currentTimeMillis(), new HostAddress(hostAddress), user);
+
+		PasswordResetRequest passwordResetRequest = new PasswordResetRequest(user,new HostAddress(hostAddress));
+
+		String resetKey = passwordResetRequest.initiateRequest();
+
 		passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
-		emailService.sendPasswordResetEmail(user.getUserProfile().getEmailId(), resetKey);
-	}
 
-	@Override
-	public void resetPassword(String resetKey, String newPassword) {
-		String hashedKey = String.valueOf(HashingUtility.hexEncodedHash(resetKey.getBytes(), "SHA-512"));
-
-		PasswordResetRequest passwordResetRequest = passwordResetRequestRepository.getPasswordResetRequestByKey(hashedKey);
-
-		if(passwordResetRequest == null){
-			throw new PasswordResetRequestNotFound();
-		}
-
-		if(passwordResetRequest.isExpired()){
-			throw new PasswordResetRequestExpired();	
-		}
-		
-		User user = passwordResetRequest.getUser();
-		String hashedPassword = String.valueOf(HashingUtility.hashedPassword(newPassword, user.getUserAccount().getUserId()));
-		user.getUserAccount().changePassword(hashedPassword);
-		userRepository.saveUser(user);
-		passwordResetRequest.expire();
-		passwordResetRequestRepository.savePasswordResetRequest(passwordResetRequest);
+		emailService.sendPasswordResetEmail(passwordResetRequest.getId(),user.getUserProfile().getEmailId(), resetKey);
 	}
 
 

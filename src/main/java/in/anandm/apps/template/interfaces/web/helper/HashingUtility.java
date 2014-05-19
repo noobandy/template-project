@@ -20,20 +20,14 @@ public final class HashingUtility {
 
 	}
 
-	public static final char[] hashedPassword(String password,String salt){
-		String saltAndPass = password+"{"+salt+"}";
-		return hexEncodedHash(saltAndPass.getBytes(), "SHA-512");
-	}
-
-	public static final char[] hexEncodedHash(byte[] content,String hashAlgorithm){
+	public static final String sha512Hash(String content){
 
 		try {
-			MessageDigest digest = MessageDigest.getInstance(hashAlgorithm);
-			digest.update(content);
-			return Hex.encodeHex(digest.digest());
+			MessageDigest digest = MessageDigest.getInstance("SHA-512");
+			digest.update(content.getBytes());
+			return new String(Hex.encodeHex(digest.digest()));
 		} catch (NoSuchAlgorithmException e) {
-
-			throw new ApplicationException("no such algorith : "+hashAlgorithm, e);
+			throw new ApplicationException("no such algorith : SHA-512", e);
 		}
 
 

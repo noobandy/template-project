@@ -9,7 +9,8 @@
 	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/lockscreen" />
 	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/login" />
 	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/register" />
-		<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/forgotPassword" />
+	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/forgotPassword" />
+	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/resetPassword" />
 	
 	<!-- 
 	<mapping exclude="true" decorator="/decorators/dashboardtheme" path="/login/*" />
