@@ -18,6 +18,7 @@ public interface IUserRepository {
 	@Transactional
 	void saveUser(User user);
 	
+	User getUserById(Long id);
 	User getUserByUserId(String userId);
 	User getUserByVerificationKey(String verificationKey);
 	DataTable<User> getDataTable(Map<String, String> params);

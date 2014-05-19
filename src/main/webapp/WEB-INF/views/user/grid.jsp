@@ -51,6 +51,15 @@
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
+				<div class="btn-group">
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/user/newUser"><i class="fa fa-plus"></i></a>
+					<a class="btn btn-primary"><i class="fa fa-edit"></i></a>
+					<a class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">Hover Data Table</h3>
@@ -131,7 +140,11 @@
                             "bServerSide": true,
                             "sAjaxSource": "${pageContext.request.contextPath}/ajax/userData",
                             "aoColumns": [
-                                          { "mData": "id","sName": "id","bSearchable":false},
+                                          { "mData": "id","sName": "id","bSearchable":false,
+                                        	  "fnRender" : function(obj) {
+                                                   return '<input type="radio" name="selectedUser" class="dt_checked" value="'+obj.aData.id+'\"/>';
+                                                 }  
+                                          },
                                           { "mData": "userId","sName": "userAccount.userId","bSearchable":true},
                                           { "mData": "firstName","sName": "userProfile.firstName","bSearchable":true},
                                           { "mData": "lastName","sName": "userProfile.lastName","bSearchable":true},

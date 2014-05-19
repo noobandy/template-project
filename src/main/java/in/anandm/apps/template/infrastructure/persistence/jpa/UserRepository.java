@@ -27,6 +27,12 @@ public class UserRepository extends BaseRepository<User, Long> implements IUserR
 	}
 
 	@Override
+	public User getUserById(Long id) {
+
+		return find(id);
+	}
+
+	@Override
 	public User getUserByUserId(String userId) {
 		Search search = new Search(User.class);
 		search.addFilter(Filter.equal("userAccount.userId", userId));
@@ -47,4 +53,6 @@ public class UserRepository extends BaseRepository<User, Long> implements IUserR
 		User foundUser = searchUnique(search);
 		return foundUser;
 	}
+
+
 }
