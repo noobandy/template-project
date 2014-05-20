@@ -3,7 +3,7 @@
  */
 package in.anandm.apps.template.interfaces.web.helper;
 
-import in.anandm.apps.template.interfaces.web.dto.Notification;
+import in.anandm.apps.template.interfaces.web.facade.dto.Notification;
 
 import java.util.ArrayList;
 

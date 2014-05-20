@@ -1,9 +1,9 @@
 package in.anandm.apps.template.domain.service;
 
 import in.anandm.apps.template.domain.model.user.User;
-import in.anandm.apps.template.interfaces.web.dto.DataTable;
-import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
-import in.anandm.apps.template.interfaces.web.dto.UserDTO;
+import in.anandm.apps.template.interfaces.web.facade.dto.DataTable;
+import in.anandm.apps.template.interfaces.web.facade.dto.RegistrationFormDTO;
+import in.anandm.apps.template.interfaces.web.facade.dto.UserDTO;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;

@@ -3,7 +3,7 @@
  */
 package in.anandm.apps.template.interfaces.web.validator;
 
-import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
+import in.anandm.apps.template.interfaces.web.facade.dto.RegistrationFormDTO;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

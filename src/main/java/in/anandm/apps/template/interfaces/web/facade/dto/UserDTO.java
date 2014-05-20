@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.anandm.apps.template.interfaces.web.dto;
+package in.anandm.apps.template.interfaces.web.facade.dto;
 
 import in.anandm.apps.template.domain.model.user.Gender;
 import in.anandm.apps.template.domain.model.user.User;

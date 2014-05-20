@@ -8,8 +8,8 @@ import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.PasswordResetRequest;
 import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.service.IUserService;
-import in.anandm.apps.template.interfaces.web.dto.Notification;
-import in.anandm.apps.template.interfaces.web.dto.RegistrationFormDTO;
+import in.anandm.apps.template.interfaces.web.facade.dto.Notification;
+import in.anandm.apps.template.interfaces.web.facade.dto.RegistrationFormDTO;
 import in.anandm.apps.template.interfaces.web.helper.NotificationHelper;
 import in.anandm.apps.template.interfaces.web.validator.AbstractValidator;
 
