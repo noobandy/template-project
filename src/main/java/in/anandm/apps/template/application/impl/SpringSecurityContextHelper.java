@@ -31,8 +31,8 @@ public class SpringSecurityContextHelper implements ISecurityContextHelper {
 
 	@Override
 	public Collection<Authority> getAuthorities() {
-
-		return null;
+		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userRepository.getUserByUserId(userDetails.getUserId()).getAuthorities();
 	}
 
 }

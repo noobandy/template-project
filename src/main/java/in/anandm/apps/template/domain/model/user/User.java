@@ -31,7 +31,7 @@ public class User {
 
 	@ManyToMany
 	private List<Authority> authorities = new ArrayList<Authority>();
-	
+
 	@OneToMany(mappedBy="user")
 	private List<PasswordResetRequest> passwordResetRequests = new ArrayList<PasswordResetRequest>();
 
@@ -117,6 +117,12 @@ public class User {
 	public List<UserSession> getActiveSessions() {
 		return userSessions;
 	}
+
+
+	public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
