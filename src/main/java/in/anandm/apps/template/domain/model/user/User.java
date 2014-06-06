@@ -3,7 +3,7 @@
  */
 package in.anandm.apps.template.domain.model.user;
 
-import in.anandm.apps.template.domain.model.group.Group;
+import in.anandm.apps.template.domain.model.authority.Authority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,9 @@ public class User {
 	@Embedded
 	private UserProfile userProfile;
 
+	@ManyToMany
+	private List<Authority> authorities = new ArrayList<Authority>();
+	
 	@OneToMany(mappedBy="user")
 	private List<PasswordResetRequest> passwordResetRequests = new ArrayList<PasswordResetRequest>();
 
@@ -38,9 +41,6 @@ public class User {
 	private List<SuccessfullLogin> successfullLogins = new ArrayList<SuccessfullLogin>();
 	@OneToMany(mappedBy="user")
 	private List<UserSession> userSessions = new ArrayList<UserSession>();
-
-	@ManyToMany(mappedBy="users")
-	private List<Group> groups = new ArrayList<Group>();
 
 	public User(UserAccount userAccount, UserProfile userProfile) {
 		super();
@@ -117,12 +117,6 @@ public class User {
 	public List<UserSession> getActiveSessions() {
 		return userSessions;
 	}
-
-	public List<Group> getGroups() {
-		return groups;
-	}
-
-
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

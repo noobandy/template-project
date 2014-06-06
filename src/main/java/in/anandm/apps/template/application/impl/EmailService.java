@@ -1,7 +1,9 @@
 /**
  * 
  */
-package in.anandm.apps.template.domain.service;
+package in.anandm.apps.template.application.impl;
+
+import in.anandm.apps.template.domain.service.IEmailService;
 
 import java.util.HashMap;
 import java.util.Map;

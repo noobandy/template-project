@@ -3,9 +3,7 @@
  */
 package in.anandm.apps.template.domain.model.group;
 
-import in.anandm.apps.template.domain.model.menu.Menu;
-import in.anandm.apps.template.domain.model.role.Role;
-import in.anandm.apps.template.domain.model.user.User;
+import in.anandm.apps.template.domain.model.authority.Authority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +28,7 @@ public class Group {
 	private Boolean enabled;
 
 	@ManyToMany
-	private List<User> users = new ArrayList<User>();
-
-	@ManyToMany
-	private List<Menu> menus = new ArrayList<Menu>();
-
-	@ManyToMany
-	private List<Role> roles = new ArrayList<Role>();
+	private List<Authority> authorities = new ArrayList<Authority>();
 
 	public void denyGroup() {
 		denyGroup = true;
@@ -54,42 +46,19 @@ public class Group {
 		enabled = true;
 	}
 
-	public void addUser(User user){
-		if(!users.contains(user)){
-			users.add(user);
+
+	public void addAuthority(Authority role){
+		if(!authorities.contains(role)){
+			authorities.add(role);
 		}
 	}
 
-	public void deleteUser(User user){
-		if(users.contains(user)){
-			users.remove(user);
+	public void removeAuthority(Authority role){
+		if(authorities.contains(role)){
+			authorities.remove(role);
 		}
 	}
 
-	public void addMenu(Menu menu){
-		if(!menus.contains(menu)){
-			menus.add(menu);
-		}
-	}
-
-	public void removeMenu(Menu menu){
-		if(menus.contains(menu)){
-			menus.remove(menu);
-		}
-	}
-
-	public void addRole(Role role){
-		if(!roles.contains(role)){
-			roles.add(role);
-		}
-	}
-
-	public void removeRole(Role role){
-		if(roles.contains(role)){
-			roles.remove(role);
-		}
-	}
-	
 	public String getGroupName() {
 		return groupName;
 	}
@@ -102,16 +71,8 @@ public class Group {
 		return enabled;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public List<Menu> getMenus() {
-		return menus;
-	}
-
-	public List<Role> getRoles() {
-		return roles;
+	public List<Authority> getAuthorities() {
+		return authorities;
 	}
 
 	@Id

@@ -1,9 +1,8 @@
 /**
  * 
  */
-package in.anandm.apps.template.domain.model.role;
+package in.anandm.apps.template.domain.model.authority;
 
-import in.anandm.apps.template.domain.model.group.Group;
 import in.anandm.apps.template.domain.model.permission.Permission;
 
 import java.util.ArrayList;
@@ -20,30 +19,43 @@ import javax.persistence.ManyToMany;
  *
  */
 @Entity
-public class Role {
+public class Authority {
 
 
-	private String roleName;
+	private String authority;
 
 	@ManyToMany
 	private List<Permission> permissions = new ArrayList<Permission>();
 
-	@ManyToMany(mappedBy="roles")
-	private List<Group> groups = new ArrayList<Group>();
 
-	public String getRoleName() {
-		return roleName;
+
+	/**
+	 * @param authority
+	 */
+	public Authority(String authority) {
+		super();
+		this.authority = authority;
+	}
+
+	public String getAuthority() {
+		return authority;
 	}
 
 	public List<Permission> getPermissions() {
 		return permissions;
 	}
 
-
-	public List<Group> getGroups() {
-		return groups;
+	public void addPermission(Permission permission){
+		permissions.add(permission);
 	}
 
+	public void removePermission(Permission permission){
+		permissions.remove(permission);
+	}
+
+	public boolean hasPermission(Permission permission){
+		return permissions.contains(permission);
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -55,7 +67,7 @@ public class Role {
 	/**
 	 * 
 	 */
-	Role() {
+	Authority() {
 		super();
 
 	}
