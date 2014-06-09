@@ -26,4 +26,6 @@ public interface IGroupRepository {
 
 	@Transactional(readOnly=true)
 	DataTable<Group> getDataTable(Map<String, String> params);
+	
+	
 }

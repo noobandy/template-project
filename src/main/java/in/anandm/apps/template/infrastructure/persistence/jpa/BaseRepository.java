@@ -121,8 +121,8 @@ public class BaseRepository<T,ID extends Serializable> extends GenericDAOImpl<T,
 		search.setFirstResult(start);
 		search.setMaxResults(noOfRecordsPerPage);
 		
-		sorts.add(Sort.desc("userAccount.userId", true));
-		search.setSorts(sorts);
+		/*sorts.add(Sort.desc("userAccount.userId", true));
+		search.setSorts(sorts);*/
 		SearchResult<T> searchresult = _searchAndCount(search);
 
 		DataTable<T> dataTable = new DataTable(sEcho, searchresult.getTotalCount(), searchresult.getTotalCount(), searchresult.getResult());

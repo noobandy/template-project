@@ -39,7 +39,6 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value="/grid")
 	public String gridPage(){
-
 		return "user/grid";
 	}
 

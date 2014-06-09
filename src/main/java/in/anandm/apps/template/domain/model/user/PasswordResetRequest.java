@@ -25,7 +25,7 @@ public class PasswordResetRequest extends BaseEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String resetKey;
 	private Long initiatedOn;
 	private Long expiredOn;
@@ -100,5 +100,14 @@ public class PasswordResetRequest extends BaseEntity{
 	public User getUser() {
 		return user;
 	}
+
+	/**
+	 * 
+	 */
+	PasswordResetRequest() {
+		super();
+
+	}
+
 
 }

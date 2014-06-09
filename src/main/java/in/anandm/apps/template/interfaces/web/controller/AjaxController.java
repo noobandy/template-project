@@ -1,5 +1,6 @@
 package in.anandm.apps.template.interfaces.web.controller;
 
+import in.anandm.apps.template.domain.model.group.IGroupRepository;
 import in.anandm.apps.template.domain.service.IUserService;
 
 import java.text.DateFormat;
@@ -27,6 +28,9 @@ public class AjaxController {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IGroupRepository groupRepository;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -46,11 +50,20 @@ public class AjaxController {
 	}
 
 	@RequestMapping(value = "/userData", method = RequestMethod.GET)
-	public String browserData(Locale locale, Model model,
+	public String userData(Locale locale, Model model,
 			@RequestParam Map<String,String> params
 			) {
 		logger.info("Params : {}",params);
 		model.addAttribute(userService.getDataTable(params));
+		return "result";
+	}
+	
+	@RequestMapping(value = "/groupData", method = RequestMethod.GET)
+	public String groupDate(Locale locale, Model model,
+			@RequestParam Map<String,String> params
+			) {
+		logger.info("Params : {}",params);
+		model.addAttribute(groupRepository.getDataTable(params));
 		return "result";
 	}
 }

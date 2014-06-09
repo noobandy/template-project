@@ -13,12 +13,15 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author anandm
  * 
  */
 @Entity
 @Table(name = "_group")
+@JsonIgnoreProperties({"authorities"})
 public class Group extends BaseEntity {
 
 	/**
@@ -83,8 +86,8 @@ public class Group extends BaseEntity {
 	 */
 	Group() {
 		super();
-		
+
 	}
-	
-	
+
+
 }
