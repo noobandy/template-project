@@ -4,15 +4,13 @@
 package in.anandm.apps.template.domain.model.user;
 
 import in.anandm.apps.template.domain.model.authority.Authority;
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -22,7 +20,12 @@ import javax.persistence.OneToMany;
  */
 @Entity
 //@JsonIgnoreProperties({"failedLoginAttempts","successfullLoginAttempts","activeSessions"})
-public class User {
+public class User extends BaseEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Embedded
 	private UserAccount userAccount;
@@ -36,9 +39,8 @@ public class User {
 	private List<PasswordResetRequest> passwordResetRequests = new ArrayList<PasswordResetRequest>();
 
 	@OneToMany(mappedBy="user")
-	private List<FailedLogin> failedLogins = new ArrayList<FailedLogin>();
-	@OneToMany(mappedBy="user")
-	private List<SuccessfullLogin> successfullLogins = new ArrayList<SuccessfullLogin>();
+	private List<LoginAttempt> loginAttempts = new ArrayList<LoginAttempt>();
+
 	@OneToMany(mappedBy="user")
 	private List<UserSession> userSessions = new ArrayList<UserSession>();
 
@@ -97,19 +99,6 @@ public class User {
 		return userProfile;
 	}
 
-	/**
-	 * @return the failedLoginAttempts
-	 */
-	public List<FailedLogin> getFailedLogins() {
-		return failedLogins;
-	}
-
-	/**
-	 * @return the successfullLoginAttempts
-	 */
-	public List<SuccessfullLogin> getSuccessfullLogins() {
-		return successfullLogins;
-	}
 
 	/**
 	 * @return the activeSessions
@@ -119,27 +108,23 @@ public class User {
 	}
 
 
+
+	public List<LoginAttempt> getLoginAttempts() {
+		return loginAttempts;
+	}
+
+
 	public List<Authority> getAuthorities() {
 		return authorities;
 	}
 
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-
-
-
 	/**
-	 * @return the id
+	 * 
 	 */
-	public Long getId() {
-		return id;
-	}
-
 	User() {
 		super();
+		
 	}
-
-
+	
 }

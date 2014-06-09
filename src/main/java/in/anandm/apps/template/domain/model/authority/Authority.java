@@ -4,14 +4,12 @@
 package in.anandm.apps.template.domain.model.authority;
 
 import in.anandm.apps.template.domain.model.permission.Permission;
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 /**
@@ -19,7 +17,13 @@ import javax.persistence.ManyToMany;
  *
  */
 @Entity
-public class Authority {
+public class Authority extends BaseEntity{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 
 	private String authority;
@@ -53,15 +57,13 @@ public class Authority {
 		permissions.remove(permission);
 	}
 
-	public boolean hasPermission(Permission permission){
-		return permissions.contains(permission);
-	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-
-	public Long getId() {
-		return id;
+	public boolean allowed(Permission permission){
+		for (Permission p : permissions) {
+			if(p.equals(permission) && !p.isExpired()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -71,5 +73,6 @@ public class Authority {
 		super();
 
 	}
+
 
 }

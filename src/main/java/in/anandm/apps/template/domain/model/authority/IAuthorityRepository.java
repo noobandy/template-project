@@ -7,13 +7,21 @@ import in.anandm.apps.template.interfaces.web.facade.dto.DataTable;
 
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * @author anandm
  *
  */
 public interface IAuthorityRepository {
 
-	void save(Authority role);
-	Authority getRoleByRoleName(String roleName);
+
+	@Transactional
+	void saveAuthority(Authority role);
+
+	@Transactional(readOnly=true)
+	Authority getAuthorityByName(String authorityName);
+
+	@Transactional(readOnly=true)
 	DataTable<Authority> getDataTable(Map<String, String> params);
 }

@@ -37,7 +37,7 @@ public class AuthorizationService implements IAuthorizationService {
 			return false;
 		}else{
 			for (Authority authority : authorities) {
-				if(authority.hasPermission(modulePermission.asPermission())){
+				if(authority.allowed(modulePermission.asPermission())){
 					return true;
 				}
 			}

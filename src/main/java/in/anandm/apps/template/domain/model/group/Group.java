@@ -4,14 +4,12 @@
 package in.anandm.apps.template.domain.model.group;
 
 import in.anandm.apps.template.domain.model.authority.Authority;
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -21,7 +19,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "_group")
-public class Group {
+public class Group extends BaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String groupName;
 	private Boolean denyGroup;
@@ -75,19 +78,13 @@ public class Group {
 		return authorities;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-
 	/**
 	 * 
 	 */
 	Group() {
 		super();
-
+		
 	}
+	
+	
 }

@@ -16,7 +16,7 @@ public class UserDTOAssembler {
 		return new UserDTO(user);
 	}
 	
-	public User fromUserDTO(UserDTO userDTO){
+	/*public User fromUserDTO(UserDTO userDTO){
 		
-	}
+	}*/
 }

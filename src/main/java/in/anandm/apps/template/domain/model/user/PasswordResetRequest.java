@@ -3,15 +3,13 @@
  */
 package in.anandm.apps.template.domain.model.user;
 
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
 import in.anandm.apps.template.interfaces.web.helper.HashingUtility;
 
 import java.util.UUID;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang.Validate;
@@ -21,8 +19,13 @@ import org.apache.commons.lang.Validate;
  *
  */
 @Entity
-public class PasswordResetRequest {
+public class PasswordResetRequest extends BaseEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String resetKey;
 	private Long initiatedOn;
 	private Long expiredOn;
@@ -96,22 +99,6 @@ public class PasswordResetRequest {
 	}
 	public User getUser() {
 		return user;
-	}
-
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * 
-	 */
-	PasswordResetRequest() {
-		super();
-
 	}
 
 }

@@ -3,15 +3,25 @@
  */
 package in.anandm.apps.template.domain.model.group;
 
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
+
+import javax.persistence.Entity;
+
 /**
  * @author anandm
  *
  */
-public class GroupUser {
+@Entity
+public class GroupUser extends BaseEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Long groupId;
 	private Long userId;
-	
+
 	/**
 	 * @param groupId
 	 * @param userId
@@ -20,14 +30,6 @@ public class GroupUser {
 		super();
 		this.groupId = groupId;
 		this.userId = userId;
-	}
-
-	/**
-	 * 
-	 */
-	GroupUser() {
-		super();
-
 	}
 
 	@Override
@@ -68,6 +70,12 @@ public class GroupUser {
 		return true;
 	}
 
+	/**
+	 * 
+	 */
+	GroupUser() {
+		super();
 
+	}
 
 }

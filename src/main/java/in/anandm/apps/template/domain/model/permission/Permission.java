@@ -3,20 +3,25 @@
  */
 package in.anandm.apps.template.domain.model.permission;
 
+import in.anandm.apps.template.domain.shared.entity.BaseEntity;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * @author anandm
  *
  */
 @Entity
-public class Permission {
+public class Permission extends BaseEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String permissionName;
 	private String moduleName;
+	private Long expiredOn;
 
 
 	/**
@@ -37,6 +42,9 @@ public class Permission {
 		return moduleName;
 	}
 
+	public boolean isExpired(){
+		return (expiredOn != null && expiredOn < System.currentTimeMillis());
+	}
 
 	@Override
 	public int hashCode() {
@@ -78,22 +86,14 @@ public class Permission {
 		return true;
 	}
 
-
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-
 	/**
 	 * 
 	 */
 	Permission() {
 		super();
-
+		
 	}
-
+	
+	
+	
 }

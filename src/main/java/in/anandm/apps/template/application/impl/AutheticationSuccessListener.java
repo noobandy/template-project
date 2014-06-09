@@ -5,10 +5,10 @@ package in.anandm.apps.template.application.impl;
 
 import in.anandm.apps.template.application.vo.CustomUserDetails;
 import in.anandm.apps.template.domain.model.user.HostAddress;
-import in.anandm.apps.template.domain.model.user.ISuccessfullLoginRepository;
+import in.anandm.apps.template.domain.model.user.ILoginAttemptRepository;
 import in.anandm.apps.template.domain.model.user.IUserRepository;
 import in.anandm.apps.template.domain.model.user.IUserSessionRepository;
-import in.anandm.apps.template.domain.model.user.SuccessfullLogin;
+import in.anandm.apps.template.domain.model.user.LoginAttempt;
 import in.anandm.apps.template.domain.model.user.User;
 import in.anandm.apps.template.domain.model.user.UserSession;
 
@@ -33,7 +33,7 @@ public class AutheticationSuccessListener implements ApplicationListener<Interac
 	@Autowired
 	private IUserRepository userRepository;
 	@Autowired
-	private ISuccessfullLoginRepository successfullLoginRepository;
+	private ILoginAttemptRepository loginAttemptRepository;
 	@Autowired
 	private IUserSessionRepository userSessionRepository;
 
@@ -55,8 +55,8 @@ public class AutheticationSuccessListener implements ApplicationListener<Interac
 
 		User user = userRepository.getUserByUserId(userId);
 
-		successfullLoginRepository.saveSuccessfullLogin(new SuccessfullLogin(event.getTimestamp(), new HostAddress(ipAddress), user));
-		
+		loginAttemptRepository.saveLoginAttempt(new LoginAttempt(user, new HostAddress(ipAddress), System.currentTimeMillis(), true));
+
 		userSessionRepository.saveUserSession(new UserSession(RequestContextHolder.currentRequestAttributes().getSessionId(),event.getTimestamp(), new HostAddress(ipAddress), user));
 	}
 

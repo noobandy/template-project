@@ -3,10 +3,10 @@
  */
 package in.anandm.apps.template.application.impl;
 
-import in.anandm.apps.template.domain.model.user.FailedLogin;
 import in.anandm.apps.template.domain.model.user.HostAddress;
-import in.anandm.apps.template.domain.model.user.IFailedLoginRepository;
+import in.anandm.apps.template.domain.model.user.ILoginAttemptRepository;
 import in.anandm.apps.template.domain.model.user.IUserRepository;
+import in.anandm.apps.template.domain.model.user.LoginAttempt;
 import in.anandm.apps.template.domain.model.user.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
 	@Autowired
 	private IUserRepository userRepository;
 	@Autowired
-	private IFailedLoginRepository failedLoginRepository;
+	private ILoginAttemptRepository loginAttemptRepository;
 
 	@Transactional
 	@Override
@@ -51,7 +51,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
 		User user = userRepository.getUserByUserId(userId);
 
 		if(user != null){
-			failedLoginRepository.saveFailedLogin(new FailedLogin(event.getTimestamp(), new HostAddress(ipAddress), user));
+			loginAttemptRepository.saveLoginAttempt(new LoginAttempt(user, new HostAddress(ipAddress), System.currentTimeMillis(), false));
 		}
 
 	}
