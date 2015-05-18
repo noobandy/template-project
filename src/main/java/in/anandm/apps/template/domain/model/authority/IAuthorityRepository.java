@@ -5,23 +5,30 @@ package in.anandm.apps.template.domain.model.authority;
 
 import in.anandm.apps.template.interfaces.web.facade.dto.DataTable;
 
+import java.util.List;
 import java.util.Map;
-
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author anandm
- *
+ * 
  */
 public interface IAuthorityRepository {
 
+	
+	void saveAuthority(Authority authority);
 
-	@Transactional
-	void saveAuthority(Authority role);
+	
+	List<Authority> findAllAuthorities();
 
-	@Transactional(readOnly=true)
-	Authority getAuthorityByName(String authorityName);
+	
+	Authority findAuthorityByName(String authorityName);
 
-	@Transactional(readOnly=true)
+	
+	List<Authority> findAuthoritiesByName(String[] authorityNames);
+
+	
+	void removeAuthorityByName(String authorityName);
+
+	
 	DataTable<Authority> getDataTable(Map<String, String> params);
 }

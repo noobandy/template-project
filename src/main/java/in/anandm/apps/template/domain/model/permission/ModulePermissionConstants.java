@@ -5,11 +5,11 @@ package in.anandm.apps.template.domain.model.permission;
 
 /**
  * @author anandm
- *
+ * 
  */
 public enum ModulePermissionConstants {
 
-	USER_ADD("user","add");
+	USER_ADD("user", "add");
 
 	private String module;
 	private String permission;
@@ -31,7 +31,4 @@ public enum ModulePermissionConstants {
 		return permission;
 	}
 
-	public Permission asPermission(){
-		return new Permission(permission, module);
-	}
 }
